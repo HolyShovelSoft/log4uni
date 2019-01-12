@@ -11,7 +11,7 @@ namespace log4net.Unity
         private static ILogHandler _unityLogHandler;
         private static ILogHandler _log4NetLogHandler;
         
-        private static bool _useInRuntime;
+        private static bool _useInRuntime = true;
 
         public static bool UseInRuntime
         {

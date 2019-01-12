@@ -6,15 +6,12 @@ namespace log4net.Unity
 {
     public class UnityConsoleAppender: AppenderSkeleton
     {
-        public static bool MustWorkInRuntime { get; set; }
-        
         private static readonly int ErrorLevel = Level.Error.Value;
         private static readonly int WarnLevel = Level.Warn.Value;
         
-        
         protected override void Append(LoggingEvent loggingEvent)
         {
-            if(!Application.isEditor && !MustWorkInRuntime) return;
+            if(!Application.isEditor && !UnityConsoleLogHandler.UseInRuntime) return;
 
             var level = loggingEvent.Level;
             
