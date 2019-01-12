@@ -5,6 +5,8 @@ namespace log4net.Unity
 {
     internal static class RuntimeInitializer
     {
+        //TODO
+        
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         public static void Init()
         {
@@ -14,9 +16,7 @@ namespace log4net.Unity
                 Thread.CurrentThread.Name = "main";    
             }
             
-            if(Application.isEditor) return;
-            
-            Debug.unityLogger.logHandler = new RuntimeLogHandler();
+            UnityConsoleLogHandler.UpdateLogHandler();
         }
     }
 }
