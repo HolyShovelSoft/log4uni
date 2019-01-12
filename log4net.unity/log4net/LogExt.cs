@@ -42,27 +42,27 @@ namespace log4net
             return null;
         }
 
-        public static LogMethod? ForDebug(this ILog log)
+        public static LogMethod? Debug(this ILog log)
         {
             return For(log, LogType.Debug);
         }
         
-        public static LogMethod? ForInfo(this ILog log)
+        public static LogMethod? Info(this ILog log)
         {
             return For(log, LogType.Info);
         }
         
-        public static LogMethod? ForWarn(this ILog log)
+        public static LogMethod? Warn(this ILog log)
         {
             return For(log, LogType.Warn);
         }
         
-        public static LogMethod? ForError(this ILog log)
+        public static LogMethod? Error(this ILog log)
         {
             return For(log, LogType.Error);
         }
         
-        public static LogMethod? ForFatal(this ILog log)
+        public static LogMethod? Fatal(this ILog log)
         {
             return For(log, LogType.Fatal);
         }

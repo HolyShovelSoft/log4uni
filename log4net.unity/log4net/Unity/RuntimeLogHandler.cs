@@ -38,17 +38,17 @@ namespace log4net.Unity
                 case LogType.Exception:
                 case LogType.Error:
                 {
-                    logger.ForError()?.CallFormat(format, args);
+                    logger.Error()?.CallFormat(format, args);
                 }
                     break;
                 case LogType.Warning:
                 {
-                    logger.ForWarn()?.CallFormat(format, args);
+                    logger.Warn()?.CallFormat(format, args);
                 }
                     break;
                 case LogType.Log:
                 {
-                    logger.ForInfo()?.CallFormat(format, args);
+                    logger.Info()?.CallFormat(format, args);
                 }
                     break;
             }
@@ -59,7 +59,7 @@ namespace log4net.Unity
             var logger = GetLogger(context);
             if(exception == null) return;
 
-            logger.ForFatal()?.Call(exception.Message, exception);
+            logger.Fatal()?.Call(exception.Message, exception);
         }
     }
 }
