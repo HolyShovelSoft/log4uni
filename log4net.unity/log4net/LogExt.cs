@@ -23,7 +23,7 @@ namespace log4net
                 case LogType.Info:
                     return log.IsInfoEnabled;
                 case LogType.Warn:
-                    return log.IsInfoEnabled;
+                    return log.IsWarnEnabled;
                 case LogType.Error:
                     return log.IsErrorEnabled;
                 case LogType.Fatal:

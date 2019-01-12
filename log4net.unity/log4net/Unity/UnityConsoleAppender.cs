@@ -1,3 +1,4 @@
+using System;
 using log4net.Appender;
 using log4net.Core;
 using UnityEngine;
@@ -11,12 +12,24 @@ namespace log4net.Unity
         
         protected override void Append(LoggingEvent loggingEvent)
         {
+            
             if(!Application.isEditor && !UnityConsoleLogHandler.UseInRuntime) return;
 
             var level = loggingEvent.Level;
             
             if(level == null) return;
-            var message = RenderLoggingEvent(loggingEvent);
+            
+            string message = "";
+            
+            try
+            {
+                message = RenderLoggingEvent(loggingEvent);
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                return;
+            }
             
             if (level.Value < WarnLevel)
             {
