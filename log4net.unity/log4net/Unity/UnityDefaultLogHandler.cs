@@ -6,9 +6,11 @@ using Object = UnityEngine.Object;
 
 namespace log4net.Unity
 {
-    public class UnityConsoleLogHandler: ILogHandler
+    public class UnityDefaultLogHandler: ILogHandler
     {
 
+        public static ILogHandler UnityHandler => unityLogHandler;
+        
         internal static ILogHandler unityLogHandler;
         internal static ILogHandler log4NetLogHandler;
         
@@ -20,7 +22,7 @@ namespace log4net.Unity
         {
             if (unityLogHandler != null) return;
             unityLogHandler = Debug.unityLogger.logHandler;
-            if (log4NetLogHandler == null) log4NetLogHandler = new UnityConsoleLogHandler();
+            if (log4NetLogHandler == null) log4NetLogHandler = new UnityDefaultLogHandler();
             Debug.unityLogger.logHandler = log4NetLogHandler;
 
             LogLog.LogReceived += (source, args) =>
@@ -41,7 +43,7 @@ namespace log4net.Unity
             };
         }
         
-        private static readonly ILog CommonLogger = LogManager.GetLogger("Common");
+        private static readonly ILog CommonLogger = LogManager.GetLogger("Unity");
         private static readonly Dictionary<Type, ILog> Loggers = new Dictionary<Type, ILog>();
 
         private static ILog GetLogger(Object context)
@@ -100,6 +102,6 @@ namespace log4net.Unity
             logger.Fatal()?.Call(exception.Message, exception);
         }
 
-        internal UnityConsoleLogHandler(){ }
+        internal UnityDefaultLogHandler(){ }
     }
 }

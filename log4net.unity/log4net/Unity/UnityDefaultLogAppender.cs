@@ -24,21 +24,21 @@ namespace log4net.Unity
             }
             catch (Exception e)
             {
-                UnityConsoleLogHandler.unityLogHandler?.LogException(e, null);
+                UnityDefaultLogHandler.unityLogHandler?.LogException(e, null);
                 return;
             }
             
             if (level.Value < WarnLevel)
             {
-                UnityConsoleLogHandler.unityLogHandler?.LogFormat(LogType.Log, null, message);
+                UnityDefaultLogHandler.unityLogHandler?.LogFormat(LogType.Log, null, message);
             }
             else if (level.Value >= WarnLevel && level.Value < ErrorLevel)
             {
-                UnityConsoleLogHandler.unityLogHandler?.LogFormat(LogType.Warning, null, message);
+                UnityDefaultLogHandler.unityLogHandler?.LogFormat(LogType.Warning, null, message);
             }
             else if(level.Value >= ErrorLevel)
             {
-                UnityConsoleLogHandler.unityLogHandler?.LogFormat(LogType.Error, null, message);
+                UnityDefaultLogHandler.unityLogHandler?.LogFormat(LogType.Error, null, message);
             }
         }
     }

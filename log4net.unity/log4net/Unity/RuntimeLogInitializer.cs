@@ -1,9 +1,10 @@
 using System.Threading;
+using log4net.Repository.Hierarchy;
 using UnityEngine;
 
 namespace log4net.Unity
 {
-    internal static class RuntimeInitializer
+    internal static class RuntimeLogInitializer
     {
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         internal static void Init()
@@ -13,8 +14,7 @@ namespace log4net.Unity
             {
                 Thread.CurrentThread.Name = "main";    
             }
-
-            UnityConsoleLogHandler.UpdateLogHandler();
+            ConfigProcessor.ReconfigureLoggers();
         }
     }
 }

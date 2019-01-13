@@ -47,8 +47,19 @@
     <ItemGroup>
         <Compile Include="log4net\LogExt.cs" />
         <Compile Include="log4net\LogMethod.cs" />
-        <Compile Include="log4net\Unity\RuntimeInitializer.cs" />
-        <Compile Include="log4net\Unity\UnityConsoleLogHandler.cs" />
+        <Compile Include="log4net\Unity\ConfigProcessor.cs" />
+        <Compile Include="log4net\Unity\Configurator.cs" />
+        <Compile Include="log4net\Unity\Config\AppDataPathConfigurator.cs" />
+        <Compile Include="log4net\Unity\Config\AppPersistentDataPathConfigurator.cs" />
+        <Compile Include="log4net\Unity\Config\BaseDefaultConfigurator.cs" />
+        <Compile Include="log4net\Unity\Config\ExcludeFromSearchAttribute.cs" />
+        <Compile Include="log4net\Unity\Config\FallbackConfigurator.cs" />
+        <Compile Include="log4net\Unity\Config\IConfigurator.cs" />
+        <Compile Include="log4net\Unity\Config\PathConfigurator.cs" />
+        <Compile Include="log4net\Unity\Config\ResourceConfigurator.cs" />
+        <Compile Include="log4net\Unity\DefaultConfigurator.cs" />
+        <Compile Include="log4net\Unity\RuntimeLogInitializer.cs" />
+        <Compile Include="log4net\Unity\UnityDefaultLogHandler.cs" />
         <Compile Include="log4net\Unity\UnityDefaultLogAppender.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
