@@ -38,7 +38,7 @@ namespace log4net.Unity
             }
         }
 
-        private static List<Holder> Holders;
+        private static List<Holder> _holders;
         
         [InitializeOnLoadMethod]
         private static void Init()
@@ -51,7 +51,7 @@ namespace log4net.Unity
                 AppPersistentDataPathConfigurator.Instance
             };
             
-            Holders = new List<Holder>();
+            _holders = new List<Holder>();
 
             for (var i = 0; i <= configurators.Length - 1; i++)
             {
@@ -60,7 +60,7 @@ namespace log4net.Unity
                 for (var j = 0; j <= paths.Length - 1; j++)
                 {
                     var path = paths[j];
-                    Holders.Add(new Holder(configurator, path));
+                    _holders.Add(new Holder(configurator, path));
                 }
             }
             
@@ -69,9 +69,9 @@ namespace log4net.Unity
 
         private static void Update()
         {
-            for (var i = 0; i <= Holders?.Count - 1; i++)
+            for (var i = 0; i <= _holders?.Count - 1; i++)
             {
-                var holder = Holders[i];
+                var holder = _holders[i];
                 holder?.CheckChange();
             }
         }
