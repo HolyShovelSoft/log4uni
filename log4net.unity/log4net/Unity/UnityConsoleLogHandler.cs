@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using log4net.Util;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -8,36 +9,36 @@ namespace log4net.Unity
     public class UnityConsoleLogHandler: ILogHandler
     {
 
-        private static ILogHandler _unityLogHandler;
-        private static ILogHandler _log4NetLogHandler;
+        internal static ILogHandler unityLogHandler;
+        internal static ILogHandler log4NetLogHandler;
         
-        private static bool _useInRuntime = true;
-
-        public static bool UseInRuntime
-        {
-            get { return _useInRuntime; }
-            set
-            {
-                if (_useInRuntime == value) return;
-                _useInRuntime = value;
-                UpdateLogHandler();
-            }
-        }
+        
         // ReSharper disable once MemberCanBePrivate.Global
         public static bool IsTypedLogging { get; set; }
-
-        private static void CheckHandlers()
-        {
-            if(Application.isEditor) return;
-            if (_unityLogHandler == null) _unityLogHandler = Debug.unityLogger.logHandler;
-            if (_log4NetLogHandler == null) _log4NetLogHandler = new UnityConsoleLogHandler();
-        }
         
         internal static void UpdateLogHandler()
         {
-            if(Application.isEditor) return;
-            CheckHandlers();
-            Debug.unityLogger.logHandler = _useInRuntime ? _log4NetLogHandler : _unityLogHandler;
+            if (unityLogHandler != null) return;
+            unityLogHandler = Debug.unityLogger.logHandler;
+            if (log4NetLogHandler == null) log4NetLogHandler = new UnityConsoleLogHandler();
+            Debug.unityLogger.logHandler = log4NetLogHandler;
+
+            LogLog.LogReceived += (source, args) =>
+            {
+                var prefix = args?.LogLog.Prefix ?? "log4net: ";
+                if (prefix.ToLower().Contains("warn"))
+                {
+                    unityLogHandler.LogFormat(LogType.Warning, null, $"{prefix}{args?.LogLog?.Message}{(args?.LogLog?.Exception != null ? " Exception: " + args.LogLog.Exception.ToString() : "")}");
+                }
+                else if (prefix.ToLower().Contains("error"))
+                {
+                    unityLogHandler.LogFormat(LogType.Error, null, $"{prefix}{args?.LogLog?.Message}{(args?.LogLog?.Exception != null ? " Exception: " + args.LogLog.Exception.ToString() : "")}");
+                }
+                else
+                {
+                    unityLogHandler.LogFormat(LogType.Log, null, $"{prefix}{args?.LogLog?.Message}{(args?.LogLog?.Exception != null ? " Exception: " + args.LogLog.Exception.ToString() : "")}");
+                }
+            };
         }
         
         private static readonly ILog CommonLogger = LogManager.GetLogger("Common");

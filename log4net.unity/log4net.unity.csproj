@@ -40,8 +40,8 @@
         <Reference Include="System" />
         <Reference Include="System.Core" />
         <Reference Include="System.Xml" />
-        <Reference Include="UnityEngine">
-            <HintPath>D:\Unity\Editors\Unity 2018.3.0f2\Editor\Data\Managed\UnityEngine.dll</HintPath>
+        <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+          <HintPath>..\external\unity\UnityEngine.dll</HintPath>
         </Reference>
     </ItemGroup>
     <ItemGroup>
@@ -49,7 +49,7 @@
         <Compile Include="log4net\LogMethod.cs" />
         <Compile Include="log4net\Unity\RuntimeInitializer.cs" />
         <Compile Include="log4net\Unity\UnityConsoleLogHandler.cs" />
-        <Compile Include="log4net\Unity\UnityConsoleAppender.cs" />
+        <Compile Include="log4net\Unity\UnityDefaultLogAppender.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <ItemGroup>
