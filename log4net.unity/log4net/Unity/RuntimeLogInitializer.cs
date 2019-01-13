@@ -1,5 +1,4 @@
 using System.Threading;
-using log4net.Repository.Hierarchy;
 using UnityEngine;
 
 namespace log4net.Unity

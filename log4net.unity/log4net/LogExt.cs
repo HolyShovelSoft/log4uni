@@ -1,5 +1,3 @@
-using System;
-
 namespace log4net
 {
     public static class LogExt

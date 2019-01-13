@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using System.Xml;
 using UnityEngine;
 
@@ -18,7 +16,7 @@ namespace log4net.Unity.Config
             for (var i = 0; i <= assets.Length - 1; i++)
             {
                 var asset = assets[i];
-                if(!asset || asset.name?.ToLower() != "log4net") continue;
+                if(!asset || asset.name.ToLower() != "log4net") continue;
                 var doc = new XmlDocument();
                 try
                 {
@@ -26,7 +24,7 @@ namespace log4net.Unity.Config
                     if(doc.DocumentElement?.Name != "log4net") continue;
                     return doc;
                 }
-                catch (Exception e)
+                catch
                 {
                     //
                 }

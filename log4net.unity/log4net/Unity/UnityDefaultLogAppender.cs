@@ -16,7 +16,7 @@ namespace log4net.Unity
             
             if(level == null) return;
             
-            string message = "";
+            string message;
             
             try
             {

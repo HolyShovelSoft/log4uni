@@ -4,8 +4,8 @@ namespace log4net
 {
     public struct LogMethod
     {
-        private ILog target;
-        private LogExt.LogType logType;
+        private readonly ILog target;
+        private readonly LogExt.LogType logType;
 
         internal LogMethod(ILog target, LogExt.LogType logType)
         {

@@ -12,18 +12,19 @@ namespace log4net.Unity
         public static ILogHandler UnityHandler => unityLogHandler;
         
         internal static ILogHandler unityLogHandler;
-        internal static ILogHandler log4NetLogHandler;
+        private static ILogHandler _log4NetLogHandler;
         
         
         // ReSharper disable once MemberCanBePrivate.Global
+        // ReSharper disable once UnusedAutoPropertyAccessor.Global
         public static bool IsTypedLogging { get; set; }
         
         internal static void UpdateLogHandler()
         {
             if (unityLogHandler != null) return;
             unityLogHandler = Debug.unityLogger.logHandler;
-            if (log4NetLogHandler == null) log4NetLogHandler = new UnityDefaultLogHandler();
-            Debug.unityLogger.logHandler = log4NetLogHandler;
+            if (_log4NetLogHandler == null) _log4NetLogHandler = new UnityDefaultLogHandler();
+            Debug.unityLogger.logHandler = _log4NetLogHandler;
 
             LogLog.LogReceived += (source, args) =>
             {
@@ -102,6 +103,6 @@ namespace log4net.Unity
             logger.Fatal()?.Call(exception.Message, exception);
         }
 
-        internal UnityDefaultLogHandler(){ }
+        private UnityDefaultLogHandler(){ }
     }
 }

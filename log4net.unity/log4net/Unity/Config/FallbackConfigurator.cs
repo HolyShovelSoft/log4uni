@@ -1,4 +1,3 @@
-using System;
 using System.Xml;
 
 namespace log4net.Unity.Config
@@ -18,7 +17,7 @@ namespace log4net.Unity.Config
                 xmlDoc.LoadXml(ConfigProcessor.DefaultConfig);
                 return xmlDoc;
             }
-            catch (Exception e)
+            catch
             {
                 return null;
             }

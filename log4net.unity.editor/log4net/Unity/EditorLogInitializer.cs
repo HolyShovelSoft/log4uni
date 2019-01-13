@@ -2,10 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using log4net.Unity.Config;
 using UnityEditor;
-using UnityEngine;
 
 namespace log4net.Unity
 {
@@ -76,7 +74,7 @@ namespace log4net.Unity
             }
         }
 
-        static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets,
+        private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets,
             string[] movedFromAssetPaths)
         {
             var exists = (importedAssets ?? Array.Empty<string>())
@@ -89,7 +87,7 @@ namespace log4net.Unity
                     if (string.IsNullOrEmpty(s)) return false;
                     var directory = Path.GetFileNameWithoutExtension(Path.GetDirectoryName(s));
                     var name = Path.GetFileNameWithoutExtension(s);
-                    return directory?.ToLower() == "resources" && name?.ToLower() == "log4net";
+                    return directory?.ToLower() == "resources" && name.ToLower() == "log4net";
                 }).Any();
 
             if (exists)
