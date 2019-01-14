@@ -24,6 +24,7 @@ namespace log4net.Unity
             if (!string.IsNullOrEmpty(path))
             {
                 ConfigProcessor.SaveDefaultConfig(path);
+                AssetDatabase.Refresh();
             }
         }
 

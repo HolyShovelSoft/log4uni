@@ -9,7 +9,7 @@
         <AppDesignerFolder>Properties</AppDesignerFolder>
         <RootNamespace>log4net.unity.editor</RootNamespace>
         <AssemblyName>log4net.unity.editor</AssemblyName>
-        <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+        <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -33,7 +33,7 @@
     </PropertyGroup>
     <ItemGroup>
         <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a">
-          <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+          <HintPath>..\packages\log4net.2.0.8\lib\net35-full\log4net.dll</HintPath>
           <Private>True</Private>
         </Reference>
         <Reference Include="System" />
@@ -53,13 +53,13 @@
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <ItemGroup>
-      <None Include="packages.config" />
-    </ItemGroup>
-    <ItemGroup>
       <ProjectReference Include="..\log4net.unity\log4net.unity.csproj">
         <Project>{aa4dc733-d037-406d-be6e-530417e36ad4}</Project>
         <Name>log4net.unity</Name>
       </ProjectReference>
+    </ItemGroup>
+    <ItemGroup>
+      <None Include="packages.config" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

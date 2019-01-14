@@ -1,7 +1,6 @@
 using System;
 using System.Xml;
 using log4net.Config;
-using log4net.Repository.Hierarchy;
 
 namespace log4net.Unity.Config
 {
@@ -16,13 +15,11 @@ namespace log4net.Unity.Config
             OnChange?.Invoke();
         }
         
-        public bool TryConfigure()
+        public void TryConfigure()
         {
             var document = GetDocument();
-            if (document == null) return false;
+            if (document == null) return;
             XmlConfigurator.Configure(document.DocumentElement);
-            var hierarchy = (Hierarchy)LogManager.GetRepository();
-            return hierarchy.Configured;
         }
     }
 }

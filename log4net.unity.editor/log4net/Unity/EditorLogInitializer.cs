@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using log4net.Unity.Config;
 using UnityEditor;
+using UnityEngine;
 
 namespace log4net.Unity
 {
@@ -19,6 +20,7 @@ namespace log4net.Unity
             public void CheckChange()
             {
                 if (fileInfo == null) return;
+                fileInfo.Refresh();
                 if (fileInfo.Exists == lastExist && fileInfo.LastWriteTime == lastEdit) return;
                 lastExist = fileInfo.Exists;
                 lastEdit = fileInfo.LastWriteTime;
@@ -77,17 +79,19 @@ namespace log4net.Unity
         private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets,
             string[] movedFromAssetPaths)
         {
-            var exists = (importedAssets ?? Array.Empty<string>())
-                .Concat(deletedAssets ?? Array.Empty<string>())
-                .Concat(movedAssets ?? Array.Empty<string>())
-                .Concat(movedFromAssetPaths ?? Array.Empty<string>())
+            var exists = (importedAssets ?? ArrayEmpty<string>.Instance)
+                .Concat(deletedAssets ?? ArrayEmpty<string>.Instance)
+                .Concat(movedAssets ?? ArrayEmpty<string>.Instance)
+                .Concat(movedFromAssetPaths ?? ArrayEmpty<string>.Instance)
                 .Distinct()
                 .Where(s =>
                 {
                     if (string.IsNullOrEmpty(s)) return false;
-                    var directory = Path.GetFileNameWithoutExtension(Path.GetDirectoryName(s));
+                    var directories = Path.GetDirectoryName(s)?
+                        .Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)
+                        .ToList() ?? new List<string>();
                     var name = Path.GetFileNameWithoutExtension(s);
-                    return directory?.ToLower() == "resources" && name.ToLower() == "log4net";
+                    return directories.Any(dir => dir?.ToLower() == "resources") && name.ToLower() == "log4net";
                 }).Any();
 
             if (exists)

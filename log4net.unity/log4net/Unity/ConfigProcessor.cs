@@ -12,7 +12,9 @@ namespace log4net.Unity
 {
     public static class ConfigProcessor
     {
-        private class Comparer: IComparer<IConfigurator>
+        public static bool IsConfigured => ((Hierarchy) LogManager.GetRepository()).Configured;
+        
+        internal class Comparer: IComparer<IConfigurator>
         {
             public static readonly IComparer<IConfigurator> Instance = new Comparer();
             
@@ -66,7 +68,7 @@ namespace log4net.Unity
                     }
                     catch
                     {
-                        return Array.Empty<Type>();
+                        return ArrayEmpty<Type>.Instance;
                     }
                 })
                 .Where(type =>
@@ -79,7 +81,7 @@ namespace log4net.Unity
 
                     if (typeof(UnityEngine.Object).IsAssignableFrom(type)) return false;
 
-                    if (type.GetCustomAttribute(typeof(ExcludeFromSearchAttribute), false) != null) return false;
+                    if (type.GetCustomAttributes(typeof(ExcludeFromSearchAttribute), false).Length > 0) return false;
 
                     var constructor = type.GetConstructors(BindingFlags.Public | BindingFlags.Instance)
                         .FirstOrDefault(info => info.GetParameters().Length == 0);
@@ -180,8 +182,8 @@ namespace log4net.Unity
                 if(configurator == null) return;
                 try
                 {
-                    var result = configurator.TryConfigure();
-                    if(result && hierarchy.Configured) return;
+                    configurator.TryConfigure();
+                    if(IsConfigured) return;
                 }
                 catch (Exception e)
                 {

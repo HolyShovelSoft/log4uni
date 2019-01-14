@@ -6,6 +6,6 @@ namespace log4net.Unity.Config
     {
         int Order { get; }
         event Action OnChange;
-        bool TryConfigure();
+        void TryConfigure();
     }
 }
