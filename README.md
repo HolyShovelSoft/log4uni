@@ -15,8 +15,6 @@ This project was tested only on platforms available to the author (Windows, Andr
 2. Unpack files log4net.unity.dll, log4net.unity.editor.dll and log4net.dll into your Unity project.
 3. Make sure that log4net.unity.editor.dll is set up to be used only in the editor..
 
-SCREENSHOT SPOT
-
 ## UnityDefaultLogAppender and Unity log handlers
 
 **UnityDefaultLogAppender** is an **Appender** for log4net, which integrates log4net loggers with Unity logger (for both runtime and editor). This plugin also replaces default Unity **ILogHandler** with a handler which sends all **Debug.Log** standard calls into log4net and lets you control default logging method with configurations.
