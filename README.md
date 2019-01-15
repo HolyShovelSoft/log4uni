@@ -2,33 +2,35 @@
 
 log4net helper classes and UnityEngine.Debug appender for Unity.
 
-Для большей совместимости использован .NET Framework 3.5.
+For greater compatibility .NET Framework 3.5 is used.
 
-Данный проект тестировался только на стэндалон платформах (преимущественно на Windows), но должно работать и на остальных платформах.
+This project was tested only on platforms available to the author (Windows, Android, WebGL), but we expect that plugin must work fine on other plaforms, supported by **Unity**.
+
+> Projects author does not guarantee **log4net** or third-party **Appenders** working properly, as some platforms are limited in their abilities, and could not be supporting some **.net** functions.
 
 ## Instalation
 
-1. Скачайте последний релиз по [ссылке](https://github.com/HolyShovelSoft/log4net.unity/releases).
-2. Распакуйте файлы log4net.unity.dll, log4net.unity.editor.dll и log4net.dll в ваш Unity проект.
-3. Убедитесь, что log4net.unity.editor.dll настроена на использование только в редакторе.
+1. Download the latest release at [ссылке](https://github.com/HolyShovelSoft/log4net.unity/releases).
+2. Unpack files log4net.unity.dll, log4net.unity.editor.dll and log4net.dll into your Unity project.
+3. Make sure that log4net.unity.editor.dll is set up to be used only in the editor..
 
-МЕСТО ДЛЯ СКРИНШОТА
+SCREENSHOT SPOT
 
 ## UnityDefaultLogAppender and Unity log handlers
 
-**UnityDefaultLogAppender** это **Appender** для log4net который интегрирует логгеры log4net с логгером Unity (как для рантайма, так и для редактора). Так же данный плагин заменяет стандартный Unity **ILogHandler** на handler который отправляет все стандартные вызовы **Debug.Log** в log4net и позволяет контролировать посредством конфигураций стандартный способ логгирования.
-Все стандартные вызовы будут интерпретированы как log4net логгеры с именем "Unity".
+**UnityDefaultLogAppender** is an **Appender** for log4net, which integrates log4net loggers with Unity logger (for both runtime and editor). This plugin also replaces default Unity **ILogHandler** with a handler which sends all **Debug.Log** standard calls into log4net and lets you control default logging method with configurations.
+All standard calls will be interpreted as log4net loggers with a name "Unity".
 
 ## Very Simple Usage
 
-После установки достаточно в коде использовать старые методы:
+After installation all that's required is to use old methods in the code:
 
 ``` csharp
-//В данном случае будет использована общая для всех log4net ILog инстанция
+//In this case common ILog instance will be used
 Debug.Log("Debug message");
 ```
 
-или использовать логгеры как это задумано самим log4net =)
+Or to use loggers as indended by log4net =)
 
 ``` csharp
 private static readonly ILog Log = LogManager.GetLogger("MyLogger");
@@ -43,17 +45,17 @@ if (Log.IsInfoEnabled)
  Log.Info()?.Call("Info message");
 ```
 
-И все, вы великолепны, вы уже используете log4net! =)
+Thats it, you are great, you are already using log4net! =)
 
 ## Simple Usage
 
-Но как же конфигурации и все то, за что мы любим log4net? Есть несколько способов конфигурировать log4net в рамках данного плагина. Самый простой из них, это расположить файл log4net конфигурации (единственным дополнительным требованием к конфигу требованием являетсмя то, что log4net node должен быть рутом) в следующих местах (в порядке проверки):
+But what about configurations and what we love log4net for? There are several ways to configure log4net in this plugin. The easiest is to place log4net configuration file( the only addition requirment is that <log4net> node must be root) in the following places (in the checking order):
 
-1. В папку **Application.persistentDataPath**. Валидными конфигурационными файлами являются файлы **log4net.xml**, **log4net.config** или **log4net.txt** с xml данными конфигурации.
-2. В папку **Application.dataPath**. Валидными конфигурационными файлами являются файлы **log4net.xml**, **log4net.config** или **log4net.txt** с xml данными конфигурации.
-3. В любую папку Resources в рамках проекта. Валидным является любой **TextAsset** с именем **log4net**.
+1. Into the folder **Application.persistentDataPath**. Valid configuration files are **log4net.xml**, **log4net.config** or **log4net.txt** with xml configuration data.
+2. Into the folder **Application.dataPath**. Valid configuration files are **log4net.xml**, **log4net.config** or **log4net.txt** with xml configuration data.
+3. Into any Resources folder within the project. Any **TextAsset** with name **log4net** is valid.
 
-В случае если ни один из данных способов получения конфигурации не обнаружит валидного конфига, будет использована конфигурация по умолчанию. А именно:
+In case none of the following configuration acquisition methods doesn't find a valid configuration, default configuration will be used. In particular:
 
 ``` xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -70,13 +72,13 @@ if (Log.IsInfoEnabled)
 </log4net>
 ```
 
-Во всех случаях при изменении какого либо из файлов при работе в редакторе будет вызвано переконфигурирование log4net. При этом в билде изменение файлов не отслеживается, учитывается состояние на момент запуска.
+When any of the files if updated when working in editor, log4net reconfiguration will be called. In build file updating is not tracked, only the state at launch is considered.
 
-> Данную конфигурацию так же можно сохранить в файл с помощью **Unity** комманды **Tools/log4net/Make Default Config**.
+> This configuration can also be saved to file using **Unity** command **Tools/log4net/Make Default Config**.
 
 ## Advanced Usage
 
-Но что если нам нужно сконфигурировать log4net кодом, а не из конфигурационного файла, или использовать сложные условия для выбора конфигурации? Для данного случая предусмотрен способ кастомизации процесса конфигурирования посредством имплементации следующего интерфейса:
+But what if we need to configure log4net with code, and not by updating configuration file, or to use complex conditions for selecting configuration? In this case you can use the following interface to customize configuration process:
 
 ``` csharp
 public interface IConfigurator
@@ -87,28 +89,28 @@ public interface IConfigurator
 }
 ```
 
-Для понимания данного интерфейса нужно разобрать как действует конфигуратор в данном плагине. При запуске редактора (а так же при рекомпиляции) или билда происходят следующие операции:
+To understand this interface, we need to understand how configuration works in this plugin. When launching editor (and when recompiling) or during the build the following operations occur:
 
-1. Очистка существующей конфигурации log4net
-2. Сбор информации обо имплементациях интерфейса **IConfigurator**
-3. Заполнение списка всех найденых конфигураторов по следующим правилам:
-    - Классы (not nested) не унаследованные от **UnityEngine.Object**, имеющие конструктор без параметров (или без объявленных конструкторов) и не помеченные **[ExcludeFromSearch]** аттрибутом инстанцируются автоматически и помещается в общий список конфигураторов.
-    - Объекты наследованные от **ScriptableObject** помещенные в **Resources** так же помещаются в общий список конфигураторов.
-    - В список добавляются конфигураторы по умолчанию с наибольшими возможными значениями поля **Order**.
-4. Полученный список сортируется от наименьшого значения поля **Order** к наибольшему.
-5. Происходит перебор списка конфигураторов, у каждого происходит вызов метода **TryConfigure**. В случае если после этого вызова **log4net** сконфигурирован, то перебор заканчивается.
+1. Reset of existing log4net configuration.
+2. Collection of all information about **IConfigurator** interface implementations.
+3. Filling in the list of all found configuratiors according to the following rules:
+    - Classes (not nested), not inhereted from **UnityEngine.Object**, that have constructor without parameters (or without declared constructors) and not marked with a **[ExcludeFromSearch]** attribute, are instantiated automatically and are placed in the common configurators list.
+    - Objects inherited from **ScriptableObject** and placed in **Resources** are also placed in the common configurators list.
+    - Default configurators added to the list (with the highest possible **Order** value).
+4. Resulting list is sorted from the lowest **Order** value to highest.
+5. Every configurator in the list is calling a method **TryConfigure** one by one. If after calling that method **log4net** is configurated, then list iterating is stopped.
 
-Помимо этого для добавления или удаления конфигураторов можно использовать следующие методы:
+Besides this you can also use following methods to add or delete configurators:
 
 ``` csharp
 ConfigProcessor.AddConfigurator(myConfigurator);
 ConfigProcessor.RemoveConfigurator(myConfigurator);
 ```
 
-Вызов данных методов вызовет переконфигурирование, так же как и срабатывания события **OnChange** у любого добавленого в общий список конфигуратора.
+Calling these methods causes reconfiguration, as well as triggering **OnChange** event in any configurator added to the list.
 
 > **Imprtant**
-> Если вам необходимо логгирование внутри конфигуратора используйте **UnityDefaultLogHandler.UnityHandler**. Это необходимо потому что во время работы конфигураторов log4net не сконфигурирован и все логи будут уходить "вникуда". **UnityDefaultLogHandler.UnityHandler** это фолбэк в стандартную систему логгирования **Unity**.
+> If you need to use logging inside configurator, use **UnityDefaultLogHandler.UnityHandler**. This is necessary because during configurators work, log4net is not configured and all logs will go into the void. **UnityDefaultLogHandler.DefaultUnityLogger** is a fallback to a standard **Unity** logging system.
 
 ## Configurators samples
 

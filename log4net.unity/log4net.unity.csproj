@@ -18,7 +18,7 @@
         <DebugSymbols>true</DebugSymbols>
         <DebugType>full</DebugType>
         <Optimize>false</Optimize>
-        <OutputPath>bin\Debug\</OutputPath>
+        <OutputPath>$(SolutionDir)\Build\Debug\</OutputPath>
         <DefineConstants>DEBUG;TRACE</DefineConstants>
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
@@ -27,15 +27,14 @@
         <PlatformTarget>AnyCPU</PlatformTarget>
         <DebugType>pdbonly</DebugType>
         <Optimize>true</Optimize>
-        <OutputPath>bin\Release\</OutputPath>
+        <OutputPath>$(SolutionDir)\Build\Release\</OutputPath>
         <DefineConstants>TRACE</DefineConstants>
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
     <ItemGroup>
         <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a">
-          <HintPath>..\packages\log4net.2.0.8\lib\net35-full\log4net.dll</HintPath>
-          <Private>True</Private>
+          <HintPath>..\external\log4net\log4net.dll</HintPath>
         </Reference>
         <Reference Include="System" />
         <Reference Include="System.Core" />
@@ -63,9 +62,24 @@
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <ItemGroup>
-      <None Include="packages.config" />
+      <Content Include="LICENSE.meta">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="link.xml.meta">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="log4net.dll.meta">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="log4net.unity.dll.meta">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="NOTICE.meta">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+    <UsingTask TaskName="LinXmlGeneration.LinXmlGenerationTask" AssemblyFile="$(SolutionDir)LinkXmlGenerator\bin\$(Configuration)\LinkXmlGenerator.dll" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
          Other similar extension points exist, see Microsoft.Common.targets.
     <Target Name="BeforeBuild">
@@ -73,5 +87,21 @@
     <Target Name="AfterBuild">
     </Target>
     -->
-
+    <Target Name="BeforeBuild">
+        <ItemGroup>
+            <ProjectReferences Include="$(SolutionDir)\LinkXmlGenerator\LinkXmlGenerator.csproj" />
+        </ItemGroup>
+        <MSBuild Projects="@(ProjectReferences)" Targets="Build">
+            <Output TaskParameter="TargetOutputs" ItemName="AssembliesBuiltByChildProjects" />
+        </MSBuild>
+    </Target>    
+    <Target Name="AfterBuild">
+        <LinXmlGenerationTask Target="$(SolutionDir)\Build\$(Configuration)\link.xml" Dlls="$(SolutionDir)\Build\$(Configuration)\log4net.dll;$(SolutionDir)\Build\$(Configuration)\log4net.unity.dll" />
+        <ItemGroup>
+            <StuffToDelete Include="$(SolutionDir)\Build\$(Configuration)\UnityEngine.dll" />
+        </ItemGroup>
+        <Delete Files="@(StuffToDelete)" />        
+        <Copy SourceFiles="$(SolutionDir)\LICENSE" DestinationFolder="$(SolutionDir)\Build\$(Configuration)" />
+        <Copy SourceFiles="$(SolutionDir)\NOTICE" DestinationFolder="$(SolutionDir)\Build\$(Configuration)" />        
+    </Target>
 </Project>

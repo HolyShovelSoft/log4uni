@@ -187,14 +187,14 @@ namespace log4net.Unity
                 }
                 catch (Exception e)
                 {
-                    UnityDefaultLogHandler.UnityHandler.LogFormat(LogType.Error, null,
+                    UnityDefaultLogHandler.DefaultUnityLogger.LogFormat(LogType.Error, null,
                         $"Error occured while '{configurator}' try configure. Exception: {e}");
                 }
             }
 
             if (!hierarchy.Configured)
             {
-                UnityDefaultLogHandler.UnityHandler.LogFormat(LogType.Warning, null,
+                UnityDefaultLogHandler.DefaultUnityLogger.LogFormat(LogType.Warning, null,
                     "Log4net not configured... something goes wrong.");
             }
         }
