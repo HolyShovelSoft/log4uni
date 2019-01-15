@@ -8,9 +8,8 @@ namespace log4net.Unity
 {
     public class UnityDefaultLogHandler: ILogHandler
     {
+        public static ILogger DefaultUnityLogger { get; private set; }
 
-        public static ILogHandler UnityHandler => unityLogHandler;
-        
         internal static ILogHandler unityLogHandler;
         private static ILogHandler _log4NetLogHandler;
         
@@ -23,6 +22,7 @@ namespace log4net.Unity
         {
             if (unityLogHandler != null) return;
             unityLogHandler = Debug.unityLogger.logHandler;
+            DefaultUnityLogger = new Logger(unityLogHandler);
             if (_log4NetLogHandler == null) _log4NetLogHandler = new UnityDefaultLogHandler();
             Debug.unityLogger.logHandler = _log4NetLogHandler;
 

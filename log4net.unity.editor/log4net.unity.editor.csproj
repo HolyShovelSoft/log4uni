@@ -17,7 +17,7 @@
         <DebugSymbols>true</DebugSymbols>
         <DebugType>full</DebugType>
         <Optimize>false</Optimize>
-        <OutputPath>bin\Debug\</OutputPath>
+        <OutputPath>$(SolutionDir)\Build\Debug\Editor</OutputPath>
         <DefineConstants>DEBUG;TRACE</DefineConstants>
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
@@ -25,16 +25,16 @@
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
         <DebugType>pdbonly</DebugType>
-        <Optimize>true</Optimize>
-        <OutputPath>bin\Release\</OutputPath>
+        <Optimize>true</Optimize>        
+        <OutputPath>$(SolutionDir)\Build\Release\Editor</OutputPath>
         <DefineConstants>TRACE</DefineConstants>
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
     <ItemGroup>
         <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a">
-          <HintPath>..\packages\log4net.2.0.8\lib\net35-full\log4net.dll</HintPath>
-          <Private>True</Private>
+          <HintPath>..\external\log4net\log4net.dll</HintPath>
+          <Private>False</Private>
         </Reference>
         <Reference Include="System" />
         <Reference Include="System.Core" />
@@ -42,9 +42,11 @@
         <Reference Include="System.Xml" />
         <Reference Include="UnityEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
           <HintPath>..\external\unity\UnityEditor.dll</HintPath>
+          <Private>False</Private>
         </Reference>
         <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
           <HintPath>..\external\unity\UnityEngine.dll</HintPath>
+          <Private>False</Private>
         </Reference>
     </ItemGroup>
     <ItemGroup>
@@ -55,11 +57,13 @@
     <ItemGroup>
       <ProjectReference Include="..\log4net.unity\log4net.unity.csproj">
         <Project>{aa4dc733-d037-406d-be6e-530417e36ad4}</Project>
-        <Name>log4net.unity</Name>
-      </ProjectReference>
+        <Name>log4net.unity</Name>        
+      </ProjectReference>        
     </ItemGroup>
     <ItemGroup>
-      <None Include="packages.config" />
+      <Content Include="log4net.unity.editor.dll.meta">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -69,5 +73,11 @@
     <Target Name="AfterBuild">
     </Target>
     -->
-
+    <Target Name="AfterBuild">
+        <ItemGroup>
+            <StuffToDelete  Include="$(SolutionDir)\Build\Release\Editor\*"
+                            Exclude="$(SolutionDir)\Build\Release\Editor\log4net.unity.editor.*"/>
+        </ItemGroup>
+        <Delete Files="@(StuffToDelete)"/>
+    </Target>
 </Project>
