@@ -11,7 +11,7 @@ This project was tested only on platforms available to the author (Windows, Andr
 
 ## Instalation
 
-1. Download the latest release at [ссылке](https://github.com/HolyShovelSoft/log4net.unity/releases).
+1. Download the latest release at [link](https://github.com/HolyShovelSoft/log4net.unity/releases).
 2. Unpack files log4net.unity.dll, log4net.unity.editor.dll and log4net.dll into your Unity project.
 3. Make sure that log4net.unity.editor.dll is set up to be used only in the editor..
 
