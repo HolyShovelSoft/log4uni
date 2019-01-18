@@ -48,7 +48,7 @@ Thats it, you are great, you are already using log4net! =)
 
 ## Simple Usage
 
-But what about configurations and what we love log4net for? There are several ways to configure log4net in this plugin. The easiest is to place log4net configuration file( the only addition requirment is that <log4net> node must be root) in the following places (in the checking order):
+But what about configurations and what we love log4net for? There are several ways to configure log4net in this plugin. The easiest is to place log4net configuration file( the only addition requirment is that **log4net** node must be root) in the following places (in the checking order):
 
 1. Into the folder **Application.persistentDataPath**. Valid configuration files are **log4net.xml**, **log4net.config** or **log4net.txt** with xml configuration data.
 2. Into the folder **Application.dataPath**. Valid configuration files are **log4net.xml**, **log4net.config** or **log4net.txt** with xml configuration data.
