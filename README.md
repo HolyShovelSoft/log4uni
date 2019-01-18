@@ -88,7 +88,7 @@ public interface IConfigurator
 }
 ```
 
-To understand this interface, we need to understand how configuration works in this plugin. When launching editor (and when recompiling) or during the build the following operations occur:
+To understand this interface, we need to understand how configuration works in this plugin. When launching editor (and when recompiling) or during the build running the following operations occur:
 
 1. Reset of existing log4net configuration.
 2. Collection of all information about **IConfigurator** interface implementations.
