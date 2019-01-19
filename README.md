@@ -91,7 +91,7 @@ public interface IConfigurator
 To understand this interface, we need to understand how configuration works in this plugin. When launching editor (and when recompiling) or during the build running the following operations occur:
 
 1. Reset of existing log4net configuration.
-2. Collection of all information about **IConfigurator** interface implementations.
+2. Collect of all information about **IConfigurator** interface implementations.
 3. Filling in the list of all found configuratiors according to the following rules:
     - Classes (not nested), not inhereted from **UnityEngine.Object**, that have constructor without parameters (or without declared constructors) and not marked with a **[ExcludeFromSearch]** attribute, are instantiated automatically and are placed in the common configurators list.
     - Objects inherited from **ScriptableObject** and placed in **Resources** are also placed in the common configurators list.
@@ -109,7 +109,7 @@ ConfigProcessor.RemoveConfigurator(myConfigurator);
 Calling these methods causes reconfiguration, as well as triggering **OnChange** event in any configurator added to the list.
 
 > **Imprtant**
-> If you need to use logging inside configurator, use **UnityDefaultLogHandler.UnityHandler**. This is necessary because during configurators work, log4net is not configured and all logs will go into the void. **UnityDefaultLogHandler.DefaultUnityLogger** is a fallback to a standard **Unity** logging system.
+> If you need to use logging inside configurator, use **UnityDefaultLogHandler.DefaultUnityLogger**. This is necessary because during configurators work, log4net is not configured and all logs will go into the void. **UnityDefaultLogHandler.DefaultUnityLogger** is a fallback to a standard **Unity** logging system.
 
 ## Configurators samples
 
