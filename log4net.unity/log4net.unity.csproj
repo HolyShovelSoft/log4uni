@@ -1,107 +1,107 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-    <PropertyGroup>
-        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-        <ProjectGuid>{AA4DC733-D037-406D-BE6E-530417E36AD4}</ProjectGuid>
-        <OutputType>Library</OutputType>
-        <AppDesignerFolder>Properties</AppDesignerFolder>
-        <RootNamespace>unity.log4net</RootNamespace>
-        <AssemblyName>log4net.unity</AssemblyName>
-        <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-        <FileAlignment>512</FileAlignment>
-        <LangVersion>6</LangVersion>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-        <PlatformTarget>AnyCPU</PlatformTarget>
-        <DebugSymbols>true</DebugSymbols>
-        <DebugType>full</DebugType>
-        <Optimize>false</Optimize>
-        <OutputPath>$(SolutionDir)\Build\Debug\</OutputPath>
-        <DefineConstants>DEBUG;TRACE</DefineConstants>
-        <ErrorReport>prompt</ErrorReport>
-        <WarningLevel>4</WarningLevel>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-        <PlatformTarget>AnyCPU</PlatformTarget>
-        <DebugType>pdbonly</DebugType>
-        <Optimize>true</Optimize>
-        <OutputPath>$(SolutionDir)\Build\Release\</OutputPath>
-        <DefineConstants>TRACE</DefineConstants>
-        <ErrorReport>prompt</ErrorReport>
-        <WarningLevel>4</WarningLevel>
-    </PropertyGroup>
-    <ItemGroup>
-        <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a">
-          <HintPath>..\external\log4net\log4net.dll</HintPath>
-        </Reference>
-        <Reference Include="System" />
-        <Reference Include="System.Core" />
-        <Reference Include="System.Xml" />
-        <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-          <HintPath>..\external\unity\UnityEngine.dll</HintPath>
-        </Reference>
-    </ItemGroup>
-    <ItemGroup>
-        <Compile Include="log4net\ArrayEmpty.cs" />
-        <Compile Include="log4net\LogExt.cs" />
-        <Compile Include="log4net\LogMethod.cs" />
-        <Compile Include="log4net\Unity\ConfigProcessor.cs" />
-        <Compile Include="log4net\Unity\Config\AppDataPathConfigurator.cs" />
-        <Compile Include="log4net\Unity\Config\AppPersistentDataPathConfigurator.cs" />
-        <Compile Include="log4net\Unity\Config\BaseDefaultConfigurator.cs" />
-        <Compile Include="log4net\Unity\Config\ExcludeFromSearchAttribute.cs" />
-        <Compile Include="log4net\Unity\Config\FallbackConfigurator.cs" />
-        <Compile Include="log4net\Unity\Config\IConfigurator.cs" />
-        <Compile Include="log4net\Unity\Config\PathConfigurator.cs" />
-        <Compile Include="log4net\Unity\Config\ResourceConfigurator.cs" />
-        <Compile Include="log4net\Unity\RuntimeLogInitializer.cs" />
-        <Compile Include="log4net\Unity\UnityDefaultLogHandler.cs" />
-        <Compile Include="log4net\Unity\UnityDefaultLogAppender.cs" />
-        <Compile Include="Properties\AssemblyInfo.cs" />
-    </ItemGroup>
-    <ItemGroup>
-      <Content Include="LICENSE.meta">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <Content Include="link.xml.meta">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <Content Include="log4net.dll.meta">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <Content Include="log4net.unity.dll.meta">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <Content Include="NOTICE.meta">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-    </ItemGroup>
-    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-    <UsingTask TaskName="LinXmlGeneration.LinXmlGenerationTask" AssemblyFile="$(SolutionDir)LinkXmlGenerator\bin\$(Configuration)\LinkXmlGenerator.dll" />
-    <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AA4DC733-D037-406D-BE6E-530417E36AD4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>unity.log4net</RootNamespace>
+    <AssemblyName>log4net.unity</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <LangVersion>6</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>$(SolutionDir)\Build\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>$(SolutionDir)\Build\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a">
+      <HintPath>..\external\log4net\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\external\unity\UnityEngine.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="log4net\ArrayEmpty.cs" />
+    <Compile Include="log4net\LogExt.cs" />
+    <Compile Include="log4net\LogMethod.cs" />
+    <Compile Include="log4net\Unity\ConfigProcessor.cs" />
+    <Compile Include="log4net\Unity\Config\AppDataPathConfigurator.cs" />
+    <Compile Include="log4net\Unity\Config\AppPersistentDataPathConfigurator.cs" />
+    <Compile Include="log4net\Unity\Config\BaseDefaultConfigurator.cs" />
+    <Compile Include="log4net\Unity\Config\ExcludeFromSearchAttribute.cs" />
+    <Compile Include="log4net\Unity\Config\FallbackConfigurator.cs" />
+    <Compile Include="log4net\Unity\Config\IConfigurator.cs" />
+    <Compile Include="log4net\Unity\Config\PathConfigurator.cs" />
+    <Compile Include="log4net\Unity\Config\ResourceConfigurator.cs" />
+    <Compile Include="log4net\Unity\RuntimeLogInitializer.cs" />
+    <Compile Include="log4net\Unity\UnityDefaultLogHandler.cs" />
+    <Compile Include="log4net\Unity\UnityDefaultLogAppender.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="LICENSE.meta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="link.xml.meta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="log4net.dll.meta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="log4net.unity.dll.meta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NOTICE.meta">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <UsingTask TaskName="LinXmlGeneration.LinXmlGenerationTask" AssemblyFile="$(SolutionDir)LinkXmlGenerator\bin\$(Configuration)\LinkXmlGenerator.dll" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
          Other similar extension points exist, see Microsoft.Common.targets.
     <Target Name="BeforeBuild">
     </Target>
     <Target Name="AfterBuild">
     </Target>
     -->
-    <Target Name="BeforeBuild">
-        <ItemGroup>
-            <ProjectReferences Include="$(SolutionDir)\LinkXmlGenerator\LinkXmlGenerator.csproj" />
-        </ItemGroup>
-        <MSBuild Projects="@(ProjectReferences)" Targets="Build">
-            <Output TaskParameter="TargetOutputs" ItemName="AssembliesBuiltByChildProjects" />
-        </MSBuild>
-    </Target>    
-    <Target Name="AfterBuild">
-        <LinXmlGenerationTask Target="$(SolutionDir)\Build\$(Configuration)\link.xml" Dlls="$(SolutionDir)\Build\$(Configuration)\log4net.dll;$(SolutionDir)\Build\$(Configuration)\log4net.unity.dll" />
-        <ItemGroup>
-            <StuffToDelete Include="$(SolutionDir)\Build\$(Configuration)\UnityEngine.dll" />
-        </ItemGroup>
-        <Delete Files="@(StuffToDelete)" />        
-        <Copy SourceFiles="$(SolutionDir)\LICENSE" DestinationFolder="$(SolutionDir)\Build\$(Configuration)" />
-        <Copy SourceFiles="$(SolutionDir)\NOTICE" DestinationFolder="$(SolutionDir)\Build\$(Configuration)" />        
-    </Target>
+  <Target Name="BeforeBuild">
+    <ItemGroup>
+      <ProjectReferences Include="$(SolutionDir)\LinkXmlGenerator\LinkXmlGenerator.csproj" />
+    </ItemGroup>
+    <MSBuild Projects="@(ProjectReferences)" Targets="Build">
+      <Output TaskParameter="TargetOutputs" ItemName="AssembliesBuiltByChildProjects" />
+    </MSBuild>
+  </Target>
+  <Target Name="AfterBuild">
+    <LinXmlGenerationTask Target="$(SolutionDir)\Build\$(Configuration)\link.xml" Dlls="$(SolutionDir)\Build\$(Configuration)\log4net.dll;$(SolutionDir)\Build\$(Configuration)\log4net.unity.dll" />
+    <ItemGroup>
+      <StuffToDelete Include="$(SolutionDir)\Build\$(Configuration)\UnityEngine.dll" />
+    </ItemGroup>
+    <Delete Files="@(StuffToDelete)" />
+    <Copy SourceFiles="$(SolutionDir)\LICENSE" DestinationFolder="$(SolutionDir)\Build\$(Configuration)" />
+    <Copy SourceFiles="$(SolutionDir)\NOTICE" DestinationFolder="$(SolutionDir)\Build\$(Configuration)" />
+  </Target>
 </Project>

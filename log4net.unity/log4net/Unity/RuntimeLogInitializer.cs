@@ -9,6 +9,7 @@ namespace log4net.Unity
         internal static void Init()
         {
             var threadName = Thread.CurrentThread.Name;
+            UnityDefaultLogHandler.applicationDataPath = Application.dataPath;
             if (string.IsNullOrEmpty(threadName))
             {
                 Thread.CurrentThread.Name = "main";    

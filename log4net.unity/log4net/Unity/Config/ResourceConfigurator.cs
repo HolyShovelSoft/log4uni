@@ -30,6 +30,8 @@ namespace log4net.Unity.Config
                 }
             }
 
+            Resources.UnloadUnusedAssets();
+            
             return null;
         }
         
