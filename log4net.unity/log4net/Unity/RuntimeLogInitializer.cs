@@ -6,7 +6,7 @@ namespace log4net.Unity
     internal static class RuntimeLogInitializer
     {
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-        internal static void Init()
+        private static void NamesFixer()
         {
             var threadName = Thread.CurrentThread.Name;
             UnityDefaultLogHandler.applicationDataPath = Application.dataPath;
@@ -14,6 +14,11 @@ namespace log4net.Unity
             {
                 Thread.CurrentThread.Name = "main";    
             }
+        }
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        internal static void Init()
+        {
             ConfigProcessor.ReconfigureLoggers();
         }
     }

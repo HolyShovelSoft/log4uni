@@ -56,6 +56,7 @@
     <Compile Include="log4net\Unity\Config\IConfigurator.cs" />
     <Compile Include="log4net\Unity\Config\PathConfigurator.cs" />
     <Compile Include="log4net\Unity\Config\ResourceConfigurator.cs" />
+    <Compile Include="log4net\Unity\ExceptionExt.cs" />
     <Compile Include="log4net\Unity\RuntimeLogInitializer.cs" />
     <Compile Include="log4net\Unity\UnityDefaultLogHandler.cs" />
     <Compile Include="log4net\Unity\UnityDefaultLogAppender.cs" />

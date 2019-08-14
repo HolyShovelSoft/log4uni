@@ -8,6 +8,7 @@ using UnityEngine;
 
 namespace log4net.Unity
 {
+    [InitializeOnLoad]
     public class EditorLogInitializer: AssetPostprocessor
     {
         private class Holder
@@ -39,8 +40,11 @@ namespace log4net.Unity
         }
 
         private static List<Holder> _holders;
-        
-        [InitializeOnLoadMethod]
+
+        static EditorLogInitializer()
+        {
+            Init();
+        }
         private static void Init()
         {
             RuntimeLogInitializer.Init();
