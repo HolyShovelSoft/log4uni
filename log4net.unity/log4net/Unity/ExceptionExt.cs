@@ -18,8 +18,25 @@ namespace log4net.Unity
 
             sb.Append(type.Name);
         }
-        
+
         public static string UnityMessageWithStack(this Exception exception, bool withFiles = true)
+        {
+            if (exception == null)
+            {
+                return "";
+            }
+            
+            try
+            {
+                return UnityMessageWithStackInternal(exception, withFiles);
+            }
+            catch
+            {
+                return $"{exception.Message}\r\n{exception.StackTrace}";
+            }
+        }
+        
+        private static string UnityMessageWithStackInternal(this Exception exception, bool withFiles = true)
         {
             var trace = new System.Diagnostics.StackTrace(exception, withFiles);
             
@@ -83,8 +100,10 @@ namespace log4net.Unity
                     {
                         
                         file = Path.GetFullPath(file);
-                        UnityDefaultLogHandler.applicationDataPath = Path.GetFullPath(UnityDefaultLogHandler.applicationDataPath);
-                        var dirName = Path.GetDirectoryName(UnityDefaultLogHandler.applicationDataPath);
+                        var testPath = Path.GetFullPath("Assets");
+                        var applicationDataPath = string.IsNullOrEmpty(UnityDefaultLogHandler.applicationDataPath) ? "Assets" : UnityDefaultLogHandler.applicationDataPath; 
+                        applicationDataPath = Path.GetFullPath(applicationDataPath);
+                        var dirName = Path.GetDirectoryName(applicationDataPath);
                         if (!string.IsNullOrEmpty(dirName))
                         {
                             var projectPath = Path.GetFullPath(dirName);

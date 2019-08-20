@@ -19,6 +19,7 @@ namespace log4net.Unity
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         internal static void Init()
         {
+            UnityDefaultLogHandler.applicationDataPath = Application.dataPath;
             ConfigProcessor.ReconfigureLoggers();
         }
     }
