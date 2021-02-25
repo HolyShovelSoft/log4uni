@@ -89,11 +89,11 @@ namespace log4net.Unity
             }
             if (args?.Length > 0)
             {
-                method?.CallFormat(format, args);    
+                method?.CallFormat(context, format, args);    
             }
             else
             {
-                method?.Call(format);
+                method?.Call(context, format);
             }
         }
 
@@ -114,7 +114,7 @@ namespace log4net.Unity
             if(exception == null) return;
             
 
-            logger.Fatal()?.Call(exception.UnityMessageWithStack());
+            logger.Error()?.Call(context, exception.UnityMessageWithStack(), exception);
         }
 
         private UnityDefaultLogHandler(){ }
