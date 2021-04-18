@@ -1,4 +1,8 @@
 using System;
+using System.Globalization;
+using log4net.Core;
+using log4net.Unity;
+using log4net.Util;
 
 namespace log4net
 {
@@ -243,5 +247,51 @@ namespace log4net
                     break;
             }
         }
+
+        private Level GetLevel()
+        {
+            switch (logType)
+            {
+                case LogExt.LogType.Debug:
+                    return Level.Debug;
+                case LogExt.LogType.Info:
+                    return Level.Info;
+                case LogExt.LogType.Warn:
+                    return Level.Warn;
+                case LogExt.LogType.Error:
+                    return Level.Error;
+                case LogExt.LogType.Fatal:
+                    return Level.Fatal;
+            }
+            return Level.Verbose;
+        }
+
+        public void CallFormat(UnityEngine.Object ctx, string format, params object[] args)
+        {
+            if (!target.IsEnabled(logType)) return;
+            var evt = new LoggingEvent(ThisDeclaringType, target.Logger.Repository, target.Logger.Name, GetLevel(), new SystemStringFormat(CultureInfo.InvariantCulture, format, args), null);
+            if (ctx != null)
+                evt.Properties[UnityDefaultLogAppender.UnityContext] = ctx;
+            target.Logger.Log(evt);
+        }
+        public void Call(UnityEngine.Object ctx, string msg)
+        {
+            if (!target.IsEnabled(logType)) return;
+            var evt = new LoggingEvent(ThisDeclaringType, target.Logger.Repository, target.Logger.Name, GetLevel(), msg, null);
+            if(ctx != null)
+                evt.Properties[UnityDefaultLogAppender.UnityContext] = ctx;
+            target.Logger.Log(evt);
+        }
+
+        public void Call(UnityEngine.Object ctx, string msg, Exception e)
+        {
+            if (!target.IsEnabled(logType)) return;
+            var evt = new LoggingEvent(ThisDeclaringType, target.Logger.Repository, target.Logger.Name, GetLevel(), msg, e);
+            if (ctx != null)
+                evt.Properties[UnityDefaultLogAppender.UnityContext] = ctx;
+            target.Logger.Log(evt);
+        }
+
+        private static readonly Type ThisDeclaringType = typeof(LogImpl);
     }
-}
+    }
