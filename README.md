@@ -52,7 +52,7 @@ But what about configurations and what we love log4net for? There are several wa
 
 1. Into the folder **Application.persistentDataPath**. Valid configuration files are **log4net.xml**, **log4net.config** or **log4net.txt** with xml configuration data.
 2. Into the folder **Application.dataPath**. Valid configuration files are **log4net.xml**, **log4net.config** or **log4net.txt** with xml configuration data.
-3. Into any Resources folder within the project. Any **TextAsset** with name **log4net** is valid.
+3. Into any Resources folder within the project. Any **TextAsset** with name **log4net** is valid. Files placed in subfolders not supported.
 
 In case none of the following configuration acquisition methods doesn't find a valid configuration, default configuration will be used. In particular:
 
