@@ -12,11 +12,10 @@ namespace log4net.Unity.Config
 
         protected override XmlDocument GetDocument()
         {
-            var assets = Resources.LoadAll<TextAsset>("");
+            var assets = Resources.LoadAll<TextAsset>("log4net");
             for (var i = 0; i <= assets.Length - 1; i++)
             {
                 var asset = assets[i];
-                if(!asset || asset.name.ToLower() != "log4net") continue;
                 var doc = new XmlDocument();
                 try
                 {
@@ -30,8 +29,6 @@ namespace log4net.Unity.Config
                 }
             }
 
-            Resources.UnloadUnusedAssets();
-            
             return null;
         }
         
