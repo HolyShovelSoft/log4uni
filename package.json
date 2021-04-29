@@ -1,0 +1,19 @@
+{
+  "name": "com.holyshovelsoft.opensource.log4uni",
+  "displayName": "log4uni",
+  "version": "1.0.0",
+  "unity": "2019.1",
+  "description": "log4net helper classes and UnityEngine.Debug appender for Unity.",
+  "keywords": [
+    "tool",
+    "log",
+    "log4net",
+    "unity"    
+  ],
+  "dependencies": {
+  },
+  "repository": {
+    "url": "https://github.com/HolyShovelSoft/log4net.unity.git",
+    "type": "git"    
+  }
+}
