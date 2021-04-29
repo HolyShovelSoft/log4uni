@@ -330,3 +330,5 @@ ASALocalRun/
 
 # Include builded release
 !/[Bb]uild/[Rr]elease/**
+!/log4uni/*.meta
+!/log4uni.editor/*.meta
