@@ -13,11 +13,9 @@
 *.userprefs
 
 # Build results
-/[Bb]uild/
+/[Bb]uild/[Dd]ebug/
 [Dd]ebug/
 [Dd]ebugPublic/
-[Rr]elease/
-[Rr]eleases/
 x64/
 x86/
 bld/
@@ -329,3 +327,6 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+
+# Include builded release
+!/[Bb]uild/[Rr]elease/**

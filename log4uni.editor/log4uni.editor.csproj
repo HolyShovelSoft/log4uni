@@ -7,8 +7,8 @@
     <ProjectGuid>{C3B147C2-E0FB-47CC-AEA4-50AAAEC65BD4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>log4net.unity.editor</RootNamespace>
-    <AssemblyName>log4net.unity.editor</AssemblyName>
+    <RootNamespace>log4nity.editor</RootNamespace>
+    <AssemblyName>log4uni.editor</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -55,15 +55,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\log4net.unity\log4net.unity.csproj">
-      <Project>{aa4dc733-d037-406d-be6e-530417e36ad4}</Project>
-      <Name>log4net.unity</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="log4net.unity.editor.dll.meta">
+    <Content Include="log4uni.editor.dll.meta">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\log4uni\log4uni.csproj">
+      <Project>{aa4dc733-d037-406d-be6e-530417e36ad4}</Project>
+      <Name>log4uni</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -75,7 +75,7 @@
     -->
   <Target Name="AfterBuild">
     <ItemGroup>
-      <StuffToDelete Include="$(SolutionDir)\Build\Release\Editor\*" Exclude="$(SolutionDir)\Build\Release\Editor\log4net.unity.editor.*" />
+      <StuffToDelete Include="$(SolutionDir)\Build\Release\Editor\*" Exclude="$(SolutionDir)\Build\Release\Editor\log4uni.editor.*" />
     </ItemGroup>
     <Delete Files="@(StuffToDelete)" />
   </Target>

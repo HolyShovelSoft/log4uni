@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>unity.log4net</RootNamespace>
-    <AssemblyName>log4net.unity</AssemblyName>
+    <AssemblyName>log4uni</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <LangVersion>6</LangVersion>
@@ -63,24 +63,42 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="LICENSE.meta">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <EmbeddedResource Include="..\LICENSE">
+      <LogicalName>LICENSE</LogicalName>
+      <Link>LICENSE</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\NOTICE">
+      <LogicalName>NOTICE</LogicalName>
+      <Link>NOTICE</Link>
+    </EmbeddedResource>
+    <Content Include="CHANGELOG.md.meta">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="link.xml.meta">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Include="LICENSE.md.meta">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="log4net.dll.meta">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="log4net.unity.dll.meta">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Include="log4uni.dll.meta">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="NOTICE.meta">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Include="NOTICE.md.meta">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="package.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="package.json.meta">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="README.md.meta">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <UsingTask TaskName="LinXmlGeneration.LinXmlGenerationTask" AssemblyFile="$(SolutionDir)LinkXmlGenerator\bin\$(Configuration)\LinkXmlGenerator.dll" />
+  <UsingTask TaskName="log4uni.BuildPostprocessor.EmbeddedLinkerDataGenerationTask" AssemblyFile="$(SolutionDir)log4uni.buildpostprocessor\bin\$(Configuration)\log4uni.buildpostprocessor.dll" />
+  <UsingTask TaskName="log4uni.BuildPostprocessor.PackageVersionUpdateTask" AssemblyFile="$(SolutionDir)log4uni.buildpostprocessor\bin\$(Configuration)\log4uni.buildpostprocessor.dll" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
          Other similar extension points exist, see Microsoft.Common.targets.
     <Target Name="BeforeBuild">
@@ -90,19 +108,22 @@
     -->
   <Target Name="BeforeBuild">
     <ItemGroup>
-      <ProjectReferences Include="$(SolutionDir)\LinkXmlGenerator\LinkXmlGenerator.csproj" />
+      <ProjectReferences Include="$(SolutionDir)\log4uni.buildpostprocessor\log4uni.buildpostprocessor.csproj" />
     </ItemGroup>
     <MSBuild Projects="@(ProjectReferences)" Targets="Build">
       <Output TaskParameter="TargetOutputs" ItemName="AssembliesBuiltByChildProjects" />
     </MSBuild>
   </Target>
   <Target Name="AfterBuild">
-    <LinXmlGenerationTask Target="$(SolutionDir)\Build\$(Configuration)\link.xml" Dlls="$(SolutionDir)\Build\$(Configuration)\log4net.dll;$(SolutionDir)\Build\$(Configuration)\log4net.unity.dll" />
+    <EmbeddedLinkerDataGenerationTask Dlls="$(SolutionDir)\Build\$(Configuration)\log4net.dll;$(SolutionDir)\Build\$(Configuration)\log4uni.dll" />
+    <PackageVersionUpdateTask TargetJson="$(SolutionDir)\Build\$(Configuration)\package.json" TargetAssembly="$(SolutionDir)\Build\$(Configuration)\log4uni.dll" />
     <ItemGroup>
       <StuffToDelete Include="$(SolutionDir)\Build\$(Configuration)\UnityEngine.dll" />
     </ItemGroup>
     <Delete Files="@(StuffToDelete)" />
-    <Copy SourceFiles="$(SolutionDir)\LICENSE" DestinationFolder="$(SolutionDir)\Build\$(Configuration)" />
-    <Copy SourceFiles="$(SolutionDir)\NOTICE" DestinationFolder="$(SolutionDir)\Build\$(Configuration)" />
+    <Copy SourceFiles="$(SolutionDir)\LICENSE" DestinationFiles="$(SolutionDir)\Build\$(Configuration)\LICENSE.md" />
+    <Copy SourceFiles="$(SolutionDir)\NOTICE" DestinationFiles="$(SolutionDir)\Build\$(Configuration)\NOTICE.md" />
+    <Copy SourceFiles="$(SolutionDir)\README.md" DestinationFiles="$(SolutionDir)\Build\$(Configuration)\README.md" />
+    <Copy SourceFiles="$(SolutionDir)\CHANGELOG.md" DestinationFiles="$(SolutionDir)\Build\$(Configuration)\CHANGELOG.md" />
   </Target>
 </Project>

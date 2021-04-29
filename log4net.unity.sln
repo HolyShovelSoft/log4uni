@@ -1,10 +1,10 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "log4net.unity", "log4net.unity\log4net.unity.csproj", "{AA4DC733-D037-406D-BE6E-530417E36AD4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "log4uni", "log4uni\log4uni.csproj", "{AA4DC733-D037-406D-BE6E-530417E36AD4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "log4net.unity.editor", "log4net.unity.editor\log4net.unity.editor.csproj", "{C3B147C2-E0FB-47CC-AEA4-50AAAEC65BD4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "log4uni.editor", "log4uni.editor\log4uni.editor.csproj", "{C3B147C2-E0FB-47CC-AEA4-50AAAEC65BD4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkXmlGenerator", "LinkXmlGenerator\LinkXmlGenerator.csproj", "{41B6E2F9-FB82-4120-9809-BF17E9634712}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "log4uni.buildpostprocessor", "log4uni.buildpostprocessor\log4uni.buildpostprocessor.csproj", "{41B6E2F9-FB82-4120-9809-BF17E9634712}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

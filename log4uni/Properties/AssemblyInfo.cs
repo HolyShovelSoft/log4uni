@@ -1,17 +1,20 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("LinkXmlGenerator")]
+[assembly: AssemblyTitle("log4uni")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("LinkXmlGenerator")]
+[assembly: AssemblyProduct("log4uni")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
+[assembly: InternalsVisibleTo("log4uni.editor")]
+[assembly: InternalsVisibleTo("log4uni.editor.dll")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
@@ -19,7 +22,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("41B6E2F9-FB82-4120-9809-BF17E9634712")]
+[assembly: Guid("AA4DC733-D037-406D-BE6E-530417E36AD4")]
 
 // Version information for an assembly consists of the following four values:
 //
