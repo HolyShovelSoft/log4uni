@@ -63,14 +63,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="..\LICENSE">
-      <LogicalName>LICENSE</LogicalName>
-      <Link>LICENSE</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\NOTICE">
-      <LogicalName>NOTICE</LogicalName>
-      <Link>NOTICE</Link>
-    </EmbeddedResource>
     <Content Include="CHANGELOG.md.meta">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -90,6 +82,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="package.json.meta">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Editor.meta">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="README.md.meta">
