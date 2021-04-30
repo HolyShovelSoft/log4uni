@@ -4,6 +4,7 @@ echo "Target version tag name $($tagName)"
 git subtree split -P Build/Release -b upm
 $tagBranchCommit=git log -n 1 upm --pretty=format:"%H"
 echo "Git subtree commit $($tagBranchCommit)"
+git push origin upm
 $existingTag=git tag -l $tagName
 if ($existingTag -eq $tagName)
 {
@@ -11,7 +12,6 @@ if ($existingTag -eq $tagName)
 }
 else
 {
-	git tag -a $tagName $tagBranchCommit -m "version $($tagName) tag"
-	git push origin upm
+	git tag -a $tagName $tagBranchCommit -m "version $($tagName) tag"	
 	git push origin $tagName
 }
