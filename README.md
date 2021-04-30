@@ -1,4 +1,5 @@
 # log4uni
+[![openupm](https://img.shields.io/npm/v/com.holyshovelsoft.opensource.log4uni?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.holyshovelsoft.opensource.log4uni/)
 
 This package its [log4net](https://logging.apache.org/log4net/) wrapper and UnityEngine.Debug appender for Unity.
 
