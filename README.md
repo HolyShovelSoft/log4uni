@@ -1,5 +1,7 @@
 # log4uni
+
 [![openupm](https://img.shields.io/npm/v/com.holyshovelsoft.opensource.log4uni?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.holyshovelsoft.opensource.log4uni/)
+[![release](https://img.shields.io/github/v/release/holyshovelsoft/log4uni.svg)](https://github.com/HolyShovelSoft/log4uni/releases/latest)
 
 This package its [log4net](https://logging.apache.org/log4net/) wrapper and UnityEngine.Debug appender for Unity.
 
@@ -22,9 +24,19 @@ This project was tested only on platforms available to the author (Windows, Andr
 
 You can use this tool as package via git link `ssh://git@github.com:HolyShovelSoft/log4uni.git#upm` or `https://github.com/HolyShovelSoft/log4uni.git#upm`. About installation packages from git you can read in this [manual](https://docs.unity3d.com/Manual/upm-ui-giturl.html).
 
-### As package from npm
+### As package from **OpenUPM**
 
-> TODO
+[Link to package](https://openupm.com/packages/com.holyshovelsoft.opensource.log4uni/)
+
+You can install it with OpenUPM CLI with code
+
+```
+openupm add com.holyshovelsoft.opensource.log4uni
+```
+
+About installation and using OpenUPM CLI you can read [here](https://openupm.com/docs/getting-started.html).
+
+The second installation method is [scoped registries](https://docs.unity3d.com/Manual/upm-scoped.html). You need add registry `https://package.openupm.com` with name **OpenUPM** for scope `com.holyshovelsoft.opensource`.
 
 ## UnityDefaultLogAppender and Unity log handlers
 
@@ -61,9 +73,18 @@ Thats it, you are great, you are already using log4net! =)
 
 But what about configurations and what we love log4net for? There are several ways to configure log4net in this plugin. The easiest is to place log4net configuration file( the only addition requirment is that **log4net** node must be root) in the following places (in the checking order):
 
-1. Into the folder **Application.persistentDataPath**. Valid configuration files are **log4net.xml**, **log4net.config** or **log4net.txt** with xml configuration data.
-2. Into the folder **Application.dataPath**. Valid configuration files are **log4net.xml**, **log4net.config** or **log4net.txt** with xml configuration data.
-3. Into any Resources folder within the project. Any **TextAsset** with name **log4net** is valid. Files placed in subfolders not supported.
+1. Into the folder **Application.persistentDataPath**. Valid configuration files are
+   - **log4net.editor.xml**, **log4net.editor.config** or **log4net.editor.txt** for editor configuration.
+   - **log4net.runtime.xml**, **log4net.runtime.config** or **log4net.runtime.txt** for runtime build configuration.
+   - **log4net.xml**, **log4net.config** or **log4net.txt** for both (editor and runtime build).
+2. Into the folder **Application.dataPath**. Valid configuration files are
+   - **log4net.editor.xml**, **log4net.editor.config** or **log4net.editor.txt** for editor configuration.
+   - **log4net.runtime.xml**, **log4net.runtime.config** or **log4net.runtime.txt** for runtime build configuration.
+   - **log4net.xml**, **log4net.config** or **log4net.txt** for both (editor and runtime build).
+3. Into any Resources folder within the project. Files placed in subfolders not supported. Its must be any **TextAsset**. Valid asset names are:
+   - **log4net.editor** for editor configuration.
+   - **log4net.runtime** for runtime build configuration.
+   - **log4net** for both (editor and runtime build).
 
 In case none of the following configuration acquisition methods doesn't find a valid configuration, default configuration will be used. In particular:
 
@@ -104,9 +125,9 @@ To understand this interface, we need to understand how configuration works in t
 1. Reset of existing log4net configuration.
 2. Collect of all information about **IConfigurator** interface implementations.
 3. Filling in the list of all found configuratiors according to the following rules:
-    - Classes (not nested), not inhereted from **UnityEngine.Object**, that have constructor without parameters (or without declared constructors) and not marked with a **[ExcludeFromSearch]** attribute, are instantiated automatically and are placed in the common configurators list.
-    - Objects inherited from **ScriptableObject** and placed in **Resources** are also placed in the common configurators list.
-    - Default configurators added to the list (with the highest possible **Order** value).
+   - Classes (not nested), not inhereted from **UnityEngine.Object**, that have constructor without parameters (or without declared constructors) and not marked with a **[ExcludeFromSearch]** attribute, are instantiated automatically and are placed in the common configurators list.
+   - Objects inherited from **ScriptableObject** and placed in **Resources** are also placed in the common configurators list.
+   - Default configurators added to the list (with the highest possible **Order** value).
 4. Resulting list is sorted from the lowest **Order** value to highest.
 5. Every configurator in the list is calling a method **TryConfigure** one by one. If after calling that method **log4net** is configurated, then list iterating is stopped.
 
