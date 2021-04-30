@@ -1,6 +1,7 @@
 using System.IO;
 using System.Text;
 using System.Xml;
+using UnityEngine;
 
 namespace log4net.Unity.Config
 {
@@ -19,6 +20,9 @@ namespace log4net.Unity.Config
                 var fullPath = System.IO.Path.GetFullPath(path);
                 filePaths = new[]
                 {
+                    System.IO.Path.Combine(fullPath, $"log4net.{(Application.isEditor ? "editor" : "runtime")}.xml"),
+                    System.IO.Path.Combine(fullPath, $"log4net.{(Application.isEditor ? "editor" : "runtime")}.config"),
+                    System.IO.Path.Combine(fullPath, $"log4net.{(Application.isEditor ? "editor" : "runtime")}.txt"),
                     System.IO.Path.Combine(fullPath, "log4net.xml"),
                     System.IO.Path.Combine(fullPath, "log4net.config"),
                     System.IO.Path.Combine(fullPath, "log4net.txt")

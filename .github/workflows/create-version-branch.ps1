@@ -14,4 +14,5 @@ else
 {
 	git tag -a $tagName $tagBranchCommit -m "version $($tagName) tag"	
 	git push origin $tagName
+	echo "RELEASE_TAG=$tagName" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append
 }
