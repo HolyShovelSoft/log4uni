@@ -1,3 +1,7 @@
+# 1.0.1
+
+* [Deploy] Add auto deployment
+
 # 1.0.0
 
 * [Refactor] Rename project and all assemblies to match unity convention.

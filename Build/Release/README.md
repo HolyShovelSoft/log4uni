@@ -19,7 +19,7 @@ This project was tested only on platforms available to the author (Windows, Andr
 
 ### As package from git
 
-> TODO
+You can use this tool as package via git link `ssh://git@github.com:HolyShovelSoft/log4uni.git#upm` or `https://github.com/HolyShovelSoft/log4uni.git#upm`. About installation packages from git you can read in this [manual](https://docs.unity3d.com/Manual/upm-ui-giturl.html).
 
 ### As package from npm
 
