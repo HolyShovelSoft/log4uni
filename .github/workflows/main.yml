@@ -32,10 +32,17 @@ jobs:
       - name: Build
         run: msbuild log4net.unity.sln -p:Configuration=Release
         
+      - name: Get Time
+        id: time
+        uses: nanzm/get-time-action@v1.1
+        with:          
+          format: 'YYYY-MM-DD-HH-mm-ss Z'
+          
       - name: Commit & Push changes
-        uses: actions-js/push@master
+        uses: actions-js/push@master        
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          message: 'Autobuild commit ${{ steps.time.outputs.time }}'
         
       - name: Create release branch
         run: .github\workflows\create-version-branch.ps1
