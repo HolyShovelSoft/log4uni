@@ -12,8 +12,13 @@
   ],
   "dependencies": {
   },
+  "author": {
+    "name": "Holy Shovel Soft",
+    "email": "support@holyshovelsoft.com",
+    "url": "https://github.com/HolyShovelSoft/log4uni.git"
+  },
   "repository": {
-    "url": "https://github.com/HolyShovelSoft/log4net.unity.git",
+    "url": "https://github.com/HolyShovelSoft/log4uni.git",
     "type": "git"    
   }
 }

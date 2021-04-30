@@ -1,3 +1,8 @@
+# 1.0.2
+
+* [Deploy] Add some lost meta files
+* [Info] Add author info 
+
 # 1.0.1
 
 * [Deploy] Add auto deployment
