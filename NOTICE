@@ -1,5 +1,5 @@
-   log4net.unity
-   Copyright 2019 Holy Shovel Soft
+   log4uni
+   Copyright 2021 Holy Shovel Soft
    
    This product includes software developed at
    The Apache Software Foundation (http://www.apache.org/).
