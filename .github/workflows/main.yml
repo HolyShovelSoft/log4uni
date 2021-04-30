@@ -30,7 +30,7 @@ jobs:
         uses: microsoft/setup-msbuild@v1.0.2
         
       - name: Build
-        run: msbuild log4net.unity.sln -p:Configuration=Release
+        run: msbuild log4net.unity.sln /t:Clean,Build -p:Configuration=Release
         
       - name: Get Time
         id: time
