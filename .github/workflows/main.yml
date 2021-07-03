@@ -6,6 +6,11 @@ on:
   push:
     branches:
     - master
+    paths:
+    - '**.cs'
+    - '**.csproj'
+    - '*/package.json'
+    - '*/packages.config'
   workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
