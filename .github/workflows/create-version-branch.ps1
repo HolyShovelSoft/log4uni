@@ -9,6 +9,7 @@ $existingTag=git tag -l $tagName
 if ($existingTag -eq $tagName)
 {
 	echo "Git tag $($tagName) already exists. Skip."
+	echo "RELEASE_TAG=NON_RELEASE" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf8 -Append
 }
 else
 {
