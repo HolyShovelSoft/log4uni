@@ -7,6 +7,9 @@ using System.Text;
 using System.Xml;
 using Microsoft.Build.Framework;
 using Mono.Cecil;
+using Mono.Cecil.Cil;
+using Mono.Cecil.Rocks;
+using TypeAttributes = Mono.Cecil.TypeAttributes;
 
 namespace log4uni.BuildPostprocessor
 {
@@ -98,14 +101,64 @@ namespace log4uni.BuildPostprocessor
             }
             return true;
         }
+
+        private static void WritePreserveToMethod(MethodDefinition methodDefinition, MethodDefinition ctorDefinition)
+        {
+            methodDefinition.CustomAttributes.Add(new CustomAttribute(ctorDefinition));
+        }
         
-        private static void ProcessType(XmlDocument doc, XmlElement element, TypeDefinition type)
+        private static void WritePreserveToEvent(EventDefinition eventDefinition, MethodDefinition ctorDefinition)
+        {
+            eventDefinition.CustomAttributes.Add(new CustomAttribute(ctorDefinition));
+        }
+        
+        private static void WritePreserveToField(FieldDefinition fieldDefinition, MethodDefinition ctorDefinition)
+        {
+            fieldDefinition.CustomAttributes.Add(new CustomAttribute(ctorDefinition));
+        }
+        
+        private static void WritePreserveToProperty(PropertyDefinition propertyDefinition, MethodDefinition ctorDefinition)
+        {
+            propertyDefinition.CustomAttributes.Add(new CustomAttribute(ctorDefinition));
+        }
+        
+        private static void WritePreserveToType(TypeDefinition type, TypeDefinition preserveAttributeType)
+        {
+            var ctorMethod = preserveAttributeType.GetConstructors()
+                .First(definition => definition.Parameters.Count == 0);
+            
+            type.CustomAttributes.Add(new CustomAttribute(ctorMethod));
+
+            foreach (var method in type.Methods)
+            {
+                WritePreserveToMethod(method, ctorMethod);
+            }
+            foreach (var evt in type.Events)
+            {
+                WritePreserveToEvent(evt, ctorMethod);
+            }
+            foreach (var property in type.Properties)
+            {
+                WritePreserveToProperty(property, ctorMethod);
+            }
+            foreach (var field in type.Fields)
+            {
+                WritePreserveToField(field, ctorMethod);
+            }
+        }
+        
+        private static void ProcessType(XmlDocument doc, XmlElement element, TypeDefinition type, TypeDefinition preserveAttributeType)
         {
             if(type.FullName == "<Module>") return;
             var typeNode = doc.CreateElement("", "type", "");
             typeNode.SetAttribute("fullname", type.FullName);
             typeNode.SetAttribute("preserve", "all");
             element.AppendChild(typeNode);
+
+            if (preserveAttributeType != null)
+            {
+                WritePreserveToType(type, preserveAttributeType);
+            }
         }
         
         private static void ProcessAssembly(XmlDocument doc, XmlElement element, AssemblyDefinition assembly)
@@ -114,11 +167,13 @@ namespace log4uni.BuildPostprocessor
             asmNode.SetAttribute("fullname", assembly.Name.Name);
             asmNode.SetAttribute("preserve", "all");
             element.AppendChild(asmNode);
-            var types = assembly.MainModule.GetTypes();
             
+            var types = assembly.MainModule.Types;
+            var preserveAttributeType = assembly.MainModule.Types.FirstOrDefault(definition =>
+                string.IsNullOrWhiteSpace(definition.Namespace) && definition.Name == "PreserveAttribute");
             foreach (var type in types)
             {
-                ProcessType(doc, asmNode, type);
+                ProcessType(doc, asmNode, type, preserveAttributeType);
             }
         }
         

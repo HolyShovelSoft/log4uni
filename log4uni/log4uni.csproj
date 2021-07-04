@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a">
+    <Reference Include="log4net, Version=2.0.12.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a">
       <HintPath>..\external\log4net\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -60,6 +60,7 @@
     <Compile Include="log4net\Unity\RuntimeLogInitializer.cs" />
     <Compile Include="log4net\Unity\UnityDefaultLogHandler.cs" />
     <Compile Include="log4net\Unity\UnityDefaultLogAppender.cs" />
+    <Compile Include="PreserveAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

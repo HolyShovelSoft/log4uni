@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using log4net.Unity.Config;
 using UnityEditor;
-using UnityEngine;
 
 namespace log4net.Unity
 {

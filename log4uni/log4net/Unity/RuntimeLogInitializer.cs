@@ -3,16 +3,23 @@ using UnityEngine;
 
 namespace log4net.Unity
 {
-    internal static class RuntimeLogInitializer
+    public static class RuntimeLogInitializer
     {
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-        private static void NamesFixer()
+        private static void MainThreadNameFix()
         {
-            var threadName = Thread.CurrentThread.Name;
-            UnityDefaultLogHandler.applicationDataPath = Application.dataPath;
-            if (string.IsNullOrEmpty(threadName))
+            try
             {
-                Thread.CurrentThread.Name = "main";    
+                var threadName = Thread.CurrentThread.Name;
+                UnityDefaultLogHandler.applicationDataPath = Application.dataPath;
+                if (string.IsNullOrEmpty(threadName))
+                {
+                    Thread.CurrentThread.Name = "main";    
+                }
+            }
+            catch
+            {
+                //
             }
         }
 
