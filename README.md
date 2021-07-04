@@ -10,7 +10,7 @@ For greater compatibility .NET Framework 3.5 is used.
 This project was tested only on platforms available to the author (Windows, Android, WebGL), but we expect that plugin must work fine on other plaforms, supported by **Unity**.
 
 > Projects author does not guarantee **log4net** or third-party **Appenders** working properly, as some platforms are limited in their abilities, and could not be supporting some **.net** functions.
-> Also this package use custom patched **log4net.dll** for work with **Unity** il2cpp and AOT platforms.
+> Also this package use custom patched **log4net.dll** (2.0.12) for work with **Unity** il2cpp and AOT platforms.
 
 ## Instalation
 

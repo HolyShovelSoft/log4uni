@@ -1,3 +1,11 @@
+# 1.0.4
+
+* [Deploy] Now github actions not build release if no changes in source files detected
+* [Deploy] Now github actions not try upload new release if version of package not changed
+* [Update] Update log4net to 2.0.12
+* [Fix] Remove all ASP, System.Web, Mutex and some OS related features from log4net for better compatibility with some Unity platforms
+* [Fix] All dll's now has better linker information for code stripping process 
+
 # 1.0.3
 
 * [Feature] log4net.editor and log4net.runtime files now supported as config files in default configurators
