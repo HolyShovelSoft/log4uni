@@ -15,6 +15,7 @@ namespace log4net.Unity
         internal static ILogHandler unityLogHandler;
         private static ILogHandler _log4NetLogHandler;
         internal static string applicationDataPath;
+        internal static Version unityVersion;
         
         // ReSharper disable once MemberCanBePrivate.Global
         // ReSharper disable once UnusedAutoPropertyAccessor.Global

@@ -80,7 +80,7 @@ namespace log4net.Unity
                 }
                 sb.Append(":");
                 sb.Append(method?.Name);
-                sb.Append("(");
+                sb.Append(" (");
                 var args = method?.GetParameters();
                 for (var j = 0; j <= args?.Length - 1; j++)
                 {
@@ -94,13 +94,12 @@ namespace log4net.Unity
                 sb.Append(")");
 
                 var file = frame.GetFileName();
+                var isAsset = false;
                 if (!string.IsNullOrEmpty(file))
                 {
                     if (Application.isEditor)
                     {
-                        
                         file = Path.GetFullPath(file);
-                        var testPath = Path.GetFullPath("Assets");
                         var applicationDataPath = string.IsNullOrEmpty(UnityDefaultLogHandler.applicationDataPath) ? "Assets" : UnityDefaultLogHandler.applicationDataPath; 
                         applicationDataPath = Path.GetFullPath(applicationDataPath);
                         var dirName = Path.GetDirectoryName(applicationDataPath);
@@ -109,6 +108,7 @@ namespace log4net.Unity
                             var projectPath = Path.GetFullPath(dirName);
                             if (file.StartsWith(projectPath))
                             {
+                                isAsset = true;
                                 file = file.Remove(0, projectPath.Length);
                                 if (file.Length > 0)
                                 {
@@ -120,12 +120,25 @@ namespace log4net.Unity
                                 }
                             }
                         }
+                        file = file.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
                     }
                     
-                    sb.Append(" (at ");
+                    sb.Append("(at ");
+                    if (isAsset && UnityDefaultLogHandler.unityVersion.Major >= 2020 && Application.isEditor)
+                    {
+                        sb.Append("<a href=\"");
+                        sb.Append(file);
+                        sb.Append("\" line=\"");
+                        sb.Append(frame.GetFileLineNumber());
+                        sb.Append("\">");
+                    }
                     sb.Append(file);
                     sb.Append(":");
                     sb.Append(frame.GetFileLineNumber());
+                    if (isAsset && UnityDefaultLogHandler.unityVersion.Major >= 2020 && Application.isEditor)
+                    {
+                        sb.Append("</a>");
+                    }
                     sb.Append(")");    
                     
                 }

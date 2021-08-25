@@ -1,3 +1,5 @@
+using System;
+using System.Text.RegularExpressions;
 using System.Threading;
 using UnityEngine;
 
@@ -27,6 +29,16 @@ namespace log4net.Unity
         internal static void Init()
         {
             UnityDefaultLogHandler.applicationDataPath = Application.dataPath;
+            try
+            {
+                var regex = new Regex("^([0-9]+\\.[0-9]+\\.[0-9]+)");
+                var match = regex.Match(Application.unityVersion);
+                UnityDefaultLogHandler.unityVersion = new Version(match.Value);
+            }
+            catch
+            {
+                UnityDefaultLogHandler.unityVersion = new Version();
+            }
             ConfigProcessor.ReconfigureLoggers();
         }
     }
