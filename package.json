@@ -1,7 +1,7 @@
 {
   "name": "com.holyshovelsoft.opensource.log4uni",
   "displayName": "log4uni",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "unity": "2019.1",
   "description": "log4net wrapper and UnityEngine.Debug appender for Unity.",
   "keywords": [

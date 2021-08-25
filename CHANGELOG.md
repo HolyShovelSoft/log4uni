@@ -1,3 +1,7 @@
+# 1.0.5
+
+* [Fix] Exception messages now has clickable source code links for Unity 2020+ versions
+
 # 1.0.4
 
 * [Deploy] Now github actions not build release if no changes in source files detected
