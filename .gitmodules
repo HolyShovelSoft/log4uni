@@ -1,0 +1,3 @@
+[submodule "external/logging-log4net"]
+	path = external/logging-log4net
+	url = https://github.com/HolyShovelSoft/logging-log4net
