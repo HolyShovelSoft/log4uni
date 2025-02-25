@@ -1,52 +1,29 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Xml;
 using Microsoft.Build.Framework;
 using Mono.Cecil;
-using Mono.Cecil.Cil;
 using Mono.Cecil.Rocks;
-using TypeAttributes = Mono.Cecil.TypeAttributes;
 
 namespace log4uni.BuildPostprocessor
 {
     public class EmbeddedLinkerDataGenerationTask: ITask
     {
-        
-        private string dlls;
         [Required]
-        public string Dlls
-        {
-            get => dlls;
-            set => dlls = value;
-        }
-        
-        private IBuildEngine engine;               
-        public IBuildEngine BuildEngine
-        {
-            get { return engine; }
-            set { engine = value; }
-        }       
-
-
-        private ITaskHost host;
-        public ITaskHost HostObject
-        {
-            get { return host; }
-            set { host = value; }
-        }
+        public string Dlls { get; set; }
+        public IBuildEngine BuildEngine { get; set; }
+        public ITaskHost HostObject { get; set; }
 
         public bool Execute()
         {
-            engine.LogMessageEvent(new BuildMessageEventArgs(
-                $"[{nameof(EmbeddedLinkerDataGenerationTask)}] Execute for assemblies '{dlls}'", string.Empty, nameof(EmbeddedLinkerDataGenerationTask), MessageImportance.High));
+            BuildEngine.LogMessageEvent(new BuildMessageEventArgs(
+                $"[{nameof(EmbeddedLinkerDataGenerationTask)}] Execute for assemblies '{Dlls}'", string.Empty, nameof(EmbeddedLinkerDataGenerationTask), MessageImportance.High));
             
             var assemblies = new List<AssemblyDefinition>();
 
-            var dllPaths = dlls
+            var dllPaths = Dlls
                 .Split(';')
                 .Select(s => s?.Trim())
                 .Where(s => !string.IsNullOrEmpty(s))
@@ -64,7 +41,7 @@ namespace log4uni.BuildPostprocessor
                 }
                 catch
                 {
-                    engine.LogMessageEvent(new BuildMessageEventArgs(
+                    BuildEngine.LogMessageEvent(new BuildMessageEventArgs(
                         $"[{nameof(EmbeddedLinkerDataGenerationTask)}] Error occured while try load assembly from '{dllPaths[i]}'", string.Empty, nameof(EmbeddedLinkerDataGenerationTask), MessageImportance.High));
                 }
             }
@@ -126,7 +103,7 @@ namespace log4uni.BuildPostprocessor
         {
             var ctorMethod = preserveAttributeType.GetConstructors()
                 .First(definition => definition.Parameters.Count == 0);
-            
+
             type.CustomAttributes.Add(new CustomAttribute(ctorMethod));
 
             foreach (var method in type.Methods)
@@ -171,14 +148,15 @@ namespace log4uni.BuildPostprocessor
             var types = assembly.MainModule.Types;
             var preserveAttributeType = assembly.MainModule.Types.FirstOrDefault(definition =>
                 string.IsNullOrWhiteSpace(definition.Namespace) && definition.Name == "PreserveAttribute");
+
             foreach (var type in types)
             {
                 ProcessType(doc, asmNode, type, preserveAttributeType);
             }
         }
-        
-        
-        public static void Generate(AssemblyDefinition[] assemblies)
+
+
+        private static void Generate(AssemblyDefinition[] assemblies)
         {
             for (var i = 0; i <= assemblies.Length - 1; i++)
             {

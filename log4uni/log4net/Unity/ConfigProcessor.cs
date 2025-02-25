@@ -68,7 +68,7 @@ namespace log4net.Unity
                     }
                     catch
                     {
-                        return ArrayEmpty<Type>.Instance;
+                        return Array.Empty<Type>();
                     }
                 })
                 .Where(type =>

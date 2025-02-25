@@ -44,6 +44,7 @@ namespace log4net.Unity
         {
             Init();
         }
+
         private static void Init()
         {
             RuntimeLogInitializer.Init();
@@ -82,10 +83,10 @@ namespace log4net.Unity
         private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets,
             string[] movedFromAssetPaths)
         {
-            var exists = (importedAssets ?? ArrayEmpty<string>.Instance)
-                .Concat(deletedAssets ?? ArrayEmpty<string>.Instance)
-                .Concat(movedAssets ?? ArrayEmpty<string>.Instance)
-                .Concat(movedFromAssetPaths ?? ArrayEmpty<string>.Instance)
+            var exists = (importedAssets ?? [])
+                .Concat(deletedAssets ?? [])
+                .Concat(movedAssets ?? [])
+                .Concat(movedFromAssetPaths ?? [])
                 .Distinct()
                 .Where(s =>
                 {

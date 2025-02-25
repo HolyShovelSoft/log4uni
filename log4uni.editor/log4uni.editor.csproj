@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>log4nity.editor</RootNamespace>
     <AssemblyName>log4uni.editor</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <LangVersion>default</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -32,9 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net, Version=2.0.12.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a">
-      <HintPath>..\external\log4net\log4net.dll</HintPath>
-    </Reference>    
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -59,6 +57,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\external\logging-log4net\src\log4net\log4net.csproj">
+      <Project>{a650873d-612f-4f71-ac2b-664a4100f3da}</Project>
+      <Name>log4net</Name>
+    </ProjectReference>
     <ProjectReference Include="..\log4uni\log4uni.csproj">
       <Project>{aa4dc733-d037-406d-be6e-530417e36ad4}</Project>
       <Name>log4uni</Name>

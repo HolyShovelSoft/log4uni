@@ -7,6 +7,8 @@ namespace log4net.Unity
 {
     public static class RuntimeLogInitializer
     {
+        private static bool initialized = false;
+
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void MainThreadNameFix()
         {
@@ -28,6 +30,9 @@ namespace log4net.Unity
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         internal static void Init()
         {
+            if (initialized) return;
+            initialized = true;
+
             UnityDefaultLogHandler.applicationDataPath = Application.dataPath;
             try
             {
