@@ -200,6 +200,4 @@ public class SimpleCodeConfigurator : IConfigurator
 
 ## Contacts
 
-- [twitter.com/holyshovelsoft](https://twitter.com/holyshovelsoft)
-- [support@holyshovelsoft.com](mailto:support@holyshovelsoft.com)
-- [andreich@holyshovelsoft.com](mailto:andreich@holyshovelsoft.com)
+- [andreich-ne@yandex.ru](mailto:andreich-ne@yandex.ru)
