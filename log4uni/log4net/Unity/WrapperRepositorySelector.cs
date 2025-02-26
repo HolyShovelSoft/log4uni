@@ -1,15 +1,31 @@
 ﻿using System;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using log4net.Core;
 using log4net.Repository;
 using UnityEngine;
 using SystemInfo = log4net.Util.SystemInfo;
 
+
 namespace log4net.Unity
 {
     public class WrapperRepositorySelector : IRepositorySelector
     {
+        private static void InvokeEditorInit()
+        {
+            if (!Application.isEditor) return;
+
+            var type = SystemInfo.GetTypeFromString("log4net.Unity.EditorLogInitializer",false, true);
+
+            if (type != null)
+            {
+                var method = type.GetMethod("Init", BindingFlags.NonPublic | BindingFlags.Static);
+                if (method != null)
+                {
+                    method.Invoke(null, null);
+                }
+            }
+        }
+
         private bool systemInitialized;
         private readonly DefaultRepositorySelector defaultRepositorySelector = new(typeof(Repository.Hierarchy.Hierarchy));
 
@@ -60,21 +76,12 @@ namespace log4net.Unity
             if (systemInitialized) return;
             systemInitialized = true;
 
+            RuntimeLogInitializer.Init();
+
             if (Application.isEditor)
             {
-                var type = SystemInfo.GetTypeFromString("log4net.Unity.EditorLogInitializer",false, true);
-
-                if (type != null)
-                {
-                    lock (this)
-                    {
-                        RuntimeHelpers.RunClassConstructor(type.TypeHandle);
-                        return;
-                    }
-                }
+                InvokeEditorInit();
             }
-
-            RuntimeLogInitializer.Init();
         }
     }
 }

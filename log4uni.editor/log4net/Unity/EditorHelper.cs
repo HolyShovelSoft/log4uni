@@ -5,13 +5,13 @@ namespace log4net.Unity
 {
     public static class EditorHelper
     {
-        private const string MakeDefaultConfigMenuPath = "Tools/log4net/Make Default Config";
-        private const string TestLogsMenuPath = "Tools/log4net/Test Logs";
+        private const string MAKE_DEFAULT_CONFIG_MENU_PATH = "Tools/log4net/Make Default Config";
+        private const string TEST_LOGS_MENU_PATH = "Tools/log4net/Test Logs";
         
         private static readonly ILog TestLogger = LogManager.GetLogger("Test");
 
 
-       [MenuItem(MakeDefaultConfigMenuPath)]
+       [MenuItem(MAKE_DEFAULT_CONFIG_MENU_PATH)]
         private static void MakeDefaultConfig()
         {
             var path = EditorUtility.SaveFilePanel(
@@ -30,7 +30,7 @@ namespace log4net.Unity
 
         
 
-        [MenuItem(TestLogsMenuPath)]
+        [MenuItem(TEST_LOGS_MENU_PATH)]
         private static void TestLogs()
         {
             Debug.Log("Test 'Debug.Log' message");

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using log4net.Unity.Config;
@@ -7,9 +8,10 @@ using UnityEditor;
 
 namespace log4net.Unity
 {
-    [InitializeOnLoad]
     public class EditorLogInitializer: AssetPostprocessor
     {
+        private const float SECONDS_BETWEEN_CHECKS = 1;
+
         private class Holder
         {
             private bool lastExist;
@@ -38,16 +40,17 @@ namespace log4net.Unity
             }
         }
 
-        private static List<Holder> _holders;
+        private static List<Holder> Holders;
+        private static bool Initialized;
+        private static Stopwatch Counter;
 
-        static EditorLogInitializer()
-        {
-            Init();
-        }
-
+        [InitializeOnLoadMethod]
         private static void Init()
         {
-            RuntimeLogInitializer.Init();
+            if (Initialized) return;
+            Initialized = true;
+
+            Counter = Stopwatch.StartNew();
 
             var configurators = new PathConfigurator[]
             {
@@ -55,7 +58,7 @@ namespace log4net.Unity
                 AppPersistentDataPathConfigurator.Instance
             };
             
-            _holders = new List<Holder>();
+            Holders = new List<Holder>();
 
             for (var i = 0; i <= configurators.Length - 1; i++)
             {
@@ -64,7 +67,7 @@ namespace log4net.Unity
                 for (var j = 0; j <= paths.Length - 1; j++)
                 {
                     var path = paths[j];
-                    _holders.Add(new Holder(configurator, path));
+                    Holders.Add(new Holder(configurator, path));
                 }
             }
             
@@ -73,11 +76,18 @@ namespace log4net.Unity
 
         private static void Update()
         {
-            for (var i = 0; i <= _holders?.Count - 1; i++)
+            if (Counter.Elapsed.TotalSeconds < SECONDS_BETWEEN_CHECKS)
             {
-                var holder = _holders[i];
+                return;
+            }
+
+            for (var i = 0; i <= Holders?.Count - 1; i++)
+            {
+                var holder = Holders[i];
                 holder?.CheckChange();
             }
+
+            Counter.Restart();
         }
 
         private static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets,

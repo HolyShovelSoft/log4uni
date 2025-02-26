@@ -14,7 +14,7 @@ namespace log4net.Unity.Config
             var xmlDoc = new XmlDocument();
             try
             {
-                xmlDoc.LoadXml(ConfigProcessor.DefaultConfig);
+                xmlDoc.LoadXml(ConfigProcessor.DEFAULT_CONFIG);
                 return xmlDoc;
             }
             catch

@@ -7,9 +7,20 @@ namespace log4net.Unity
 {
     public static class RuntimeLogInitializer
     {
-        private static bool initialized = false;
+        private static bool Initialized;
 
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
+        internal static void Init()
+        {
+            if (Initialized) return;
+            Initialized = true;
+
+            FillUnityContext();
+
+            ConfigProcessor.ReconfigureLoggers();
+        }
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         private static void MainThreadNameFix()
         {
             try
@@ -18,7 +29,7 @@ namespace log4net.Unity
                 UnityDefaultLogHandler.applicationDataPath = Application.dataPath;
                 if (string.IsNullOrEmpty(threadName))
                 {
-                    Thread.CurrentThread.Name = "main";    
+                    Thread.CurrentThread.Name = "main";
                 }
             }
             catch
@@ -27,12 +38,8 @@ namespace log4net.Unity
             }
         }
 
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-        internal static void Init()
+        private static void FillUnityContext()
         {
-            if (initialized) return;
-            initialized = true;
-
             UnityDefaultLogHandler.applicationDataPath = Application.dataPath;
             try
             {
@@ -44,7 +51,6 @@ namespace log4net.Unity
             {
                 UnityDefaultLogHandler.unityVersion = new Version();
             }
-            ConfigProcessor.ReconfigureLoggers();
         }
     }
 }

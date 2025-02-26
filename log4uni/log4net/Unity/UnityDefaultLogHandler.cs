@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Text;
 using log4net.Util;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -13,9 +11,9 @@ namespace log4net.Unity
         public static ILogger DefaultUnityLogger { get; private set; }
 
         internal static ILogHandler unityLogHandler;
-        private static ILogHandler _log4NetLogHandler;
         internal static string applicationDataPath;
         internal static Version unityVersion;
+        private static ILogHandler Log4NetLogHandler;
         
         // ReSharper disable once MemberCanBePrivate.Global
         // ReSharper disable once UnusedAutoPropertyAccessor.Global
@@ -24,10 +22,11 @@ namespace log4net.Unity
         internal static void UpdateLogHandler()
         {
             if (unityLogHandler != null) return;
+
             unityLogHandler = Debug.unityLogger.logHandler;
             DefaultUnityLogger = new Logger(unityLogHandler);
-            if (_log4NetLogHandler == null) _log4NetLogHandler = new UnityDefaultLogHandler();
-            Debug.unityLogger.logHandler = _log4NetLogHandler;
+            if (Log4NetLogHandler == null) Log4NetLogHandler = new UnityDefaultLogHandler();
+            Debug.unityLogger.logHandler = Log4NetLogHandler;
 
             LogLog.LogReceived += (source, args) =>
             {
@@ -48,21 +47,26 @@ namespace log4net.Unity
         }
         
         private static readonly ILog CommonLogger = LogManager.GetLogger("Unity");
-        private static readonly Dictionary<Type, ILog> Loggers = new Dictionary<Type, ILog>();
+        private static readonly Dictionary<Type, ILog> Loggers = new();
 
         private static ILog GetLogger(Object context)
         {
             if (!context || !IsTypedLogging) return CommonLogger;
+
             var type = context.GetType();
-            ILog typedLog;
-            if (Loggers.TryGetValue(type, out typedLog) && typedLog != null) return typedLog;
-            typedLog = LogManager.GetLogger(type);
-            Loggers[type] = typedLog;
 
-            return typedLog;
+            lock (Loggers)
+            {
+                if (Loggers.TryGetValue(type, out var typedLog) && typedLog != null) return typedLog;
 
+                typedLog = LogManager.GetLogger(type);
+                Loggers[type] = typedLog;
+
+                return typedLog;
+            }
         }
-        
+
+        [HideInCallstack]
         public void LogFormat(LogType logType, Object context, string format, params object[] args)
         {
             var logger = GetLogger(context);
@@ -98,17 +102,7 @@ namespace log4net.Unity
             }
         }
 
-        void AddNestedType(StringBuilder sb, Type type)
-        {
-            if (type.IsNested)
-            {
-                AddNestedType(sb, type.DeclaringType);
-                sb.Append("+");
-            }
-
-            sb.Append(type.Name);
-        }
-        
+        [HideInCallstack]
         public void LogException(Exception exception, Object context)
         {
             var logger = GetLogger(context);

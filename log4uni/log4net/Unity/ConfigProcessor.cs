@@ -39,7 +39,7 @@ namespace log4net.Unity
             private Comparer() { }
         }
         
-        internal const string DefaultConfig = 
+        internal const string DEFAULT_CONFIG =
             "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n" +
             "<log4net>\r\n" +
             "	<appender name=\"unityConsole\" type=\"log4net.Unity.UnityDefaultLogAppender\">\r\n" +
@@ -54,12 +54,12 @@ namespace log4net.Unity
             "</log4net>";
 
         private static readonly List<IConfigurator> Configurators = new List<IConfigurator>();
-        private static Type[] _types;
+        private static Type[] Types;
 
         private static void FillTypes()
         {
-            if(_types != null) return;
-            _types = AppDomain.CurrentDomain.GetAssemblies()
+            if(Types != null) return;
+            Types = AppDomain.CurrentDomain.GetAssemblies()
                 .SelectMany(assembly =>
                 {
                     try
@@ -104,9 +104,9 @@ namespace log4net.Unity
 
         private static void FillReflections()
         {
-            for (var i = 0; i <= _types.Length - 1; i++)
+            for (var i = 0; i <= Types.Length - 1; i++)
             {
-                var type = _types[i];
+                var type = Types[i];
                 if (type == null) continue;
                 if (typeof(UnityEngine.Object).IsAssignableFrom(type)) continue;
                 var configurator = Activator.CreateInstance(type) as IConfigurator;
@@ -120,9 +120,9 @@ namespace log4net.Unity
         
         private static void FillResources()
         {
-            for (var i = 0; i <= _types.Length - 1; i++)
+            for (var i = 0; i <= Types.Length - 1; i++)
             {
-                var type = _types[i];
+                var type = Types[i];
                 if (type == null) continue;
                 if (!typeof(ScriptableObject).IsAssignableFrom(type)) continue;
                 var resources = Resources.LoadAll("", type);
@@ -213,7 +213,7 @@ namespace log4net.Unity
                     Directory.CreateDirectory(directory);
                 }
                 
-                File.WriteAllText(fullPath, DefaultConfig, Encoding.UTF8);
+                File.WriteAllText(fullPath, DEFAULT_CONFIG, Encoding.UTF8);
             }
             catch 
             {

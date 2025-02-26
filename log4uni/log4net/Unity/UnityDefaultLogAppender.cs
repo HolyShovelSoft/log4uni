@@ -2,17 +2,17 @@ using System;
 using log4net.Appender;
 using log4net.Core;
 using UnityEngine;
-using Object = System.Object;
 
 namespace log4net.Unity
 {
     public class UnityDefaultLogAppender: AppenderSkeleton
     {
-        public const string UnityContext = "unity:context";
+        public const string UNITY_CONTEXT = "unity:context";
 
         private static readonly int ErrorLevel = Level.Error.Value;
         private static readonly int WarnLevel = Level.Warn.Value;
-        
+
+        [HideInCallstack]
         protected override void Append(LoggingEvent loggingEvent)
         {
             var level = loggingEvent.Level;
@@ -31,7 +31,7 @@ namespace log4net.Unity
                 return;
             }
 
-            var ctx = loggingEvent.LookupProperty(UnityContext) as UnityEngine.Object;
+            var ctx = loggingEvent.LookupProperty(UNITY_CONTEXT) as UnityEngine.Object;
 
             if (level.Value < WarnLevel)
             {

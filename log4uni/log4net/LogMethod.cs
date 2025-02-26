@@ -3,6 +3,7 @@ using System.Globalization;
 using log4net.Core;
 using log4net.Unity;
 using log4net.Util;
+using UnityEngine;
 
 namespace log4net
 {
@@ -17,6 +18,7 @@ namespace log4net
             this.logType = logType;
         }
 
+        [HideInCallstack]
         public void Call(string message)
         {
             if (!target.IsEnabled(logType)) return;
@@ -49,7 +51,8 @@ namespace log4net
                     break;
             }
         }
-        
+
+        [HideInCallstack]
         public void Call(string message, Exception exception)
         {
             if (!target.IsEnabled(logType)) return;
@@ -83,6 +86,7 @@ namespace log4net
             }
         }
 
+        [HideInCallstack]
         public void CallFormat(IFormatProvider formatProvider, string format, params object[] args)
         {
             if (!target.IsEnabled(logType)) return;
@@ -116,6 +120,7 @@ namespace log4net
             }
         }
 
+        [HideInCallstack]
         public void CallFormat(string format, object arg0)
         {
             if (!target.IsEnabled(logType)) return;
@@ -148,7 +153,8 @@ namespace log4net
                     break;
             }
         }
-        
+
+        [HideInCallstack]
         public void CallFormat(string format, object arg0, object arg1)
         {
             if (!target.IsEnabled(logType)) return;
@@ -181,7 +187,8 @@ namespace log4net
                     break;
             }
         }
-        
+
+        [HideInCallstack]
         public void CallFormat(string format, object arg0, object arg1, object arg2)
         {
             if (!target.IsEnabled(logType)) return;
@@ -214,7 +221,8 @@ namespace log4net
                     break;
             }
         }
-        
+
+        [HideInCallstack]
         public void CallFormat(string format, params object[] args)
         {
             if (!target.IsEnabled(logType)) return;
@@ -266,32 +274,36 @@ namespace log4net
             return Level.Verbose;
         }
 
+        [HideInCallstack]
         public void CallFormat(UnityEngine.Object ctx, string format, params object[] args)
         {
             if (!target.IsEnabled(logType)) return;
             var evt = new LoggingEvent(ThisDeclaringType, target.Logger.Repository, target.Logger.Name, GetLevel(), new SystemStringFormat(CultureInfo.InvariantCulture, format, args), null);
             if (ctx != null)
-                evt.Properties[UnityDefaultLogAppender.UnityContext] = ctx;
+                evt.Properties[UnityDefaultLogAppender.UNITY_CONTEXT] = ctx;
             target.Logger.Log(evt);
         }
+
+        [HideInCallstack]
         public void Call(UnityEngine.Object ctx, string msg)
         {
             if (!target.IsEnabled(logType)) return;
             var evt = new LoggingEvent(ThisDeclaringType, target.Logger.Repository, target.Logger.Name, GetLevel(), msg, null);
             if(ctx != null)
-                evt.Properties[UnityDefaultLogAppender.UnityContext] = ctx;
+                evt.Properties[UnityDefaultLogAppender.UNITY_CONTEXT] = ctx;
             target.Logger.Log(evt);
         }
 
+        [HideInCallstack]
         public void Call(UnityEngine.Object ctx, string msg, Exception e)
         {
             if (!target.IsEnabled(logType)) return;
             var evt = new LoggingEvent(ThisDeclaringType, target.Logger.Repository, target.Logger.Name, GetLevel(), msg, e);
             if (ctx != null)
-                evt.Properties[UnityDefaultLogAppender.UnityContext] = ctx;
+                evt.Properties[UnityDefaultLogAppender.UNITY_CONTEXT] = ctx;
             target.Logger.Log(evt);
         }
 
         private static readonly Type ThisDeclaringType = typeof(LogImpl);
     }
-    }
+}
