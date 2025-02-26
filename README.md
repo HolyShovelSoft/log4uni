@@ -5,7 +5,7 @@
 
 This package its [log4net](https://logging.apache.org/log4net/) wrapper and UnityEngine.Debug appender for Unity.
 
-.NET Framework 4.6 is used.
+.NET Framework 4.6 is used. Minimal unity supported version is 2021.3.45f
 
 This project was tested only on platforms available to the author (Windows, Android, WebGL), but we expect that plugin must work fine on other plaforms, supported by **Unity**.
 
@@ -200,6 +200,4 @@ public class SimpleCodeConfigurator : IConfigurator
 
 ## Contacts
 
-- [twitter.com/holyshovelsoft](https://twitter.com/holyshovelsoft)
-- [support@holyshovelsoft.com](mailto:support@holyshovelsoft.com)
-- [andreich@holyshovelsoft.com](mailto:andreich@holyshovelsoft.com)
+- [andreich-ne@yandex.ru](mailto:andreich-ne@yandex.ru)
