@@ -74,7 +74,7 @@
     -->
   <Target Name="AfterBuild">
     <ItemGroup>
-      <StuffToDelete Include="$(SolutionDir)\Build\Release\Editor\*" Exclude="$(SolutionDir)\Build\Release\Editor\log4uni.editor.*" />
+      <StuffToDelete Include="$(SolutionDir)\Build\Release\Editor\*" Exclude="$(SolutionDir)\Build\Release\Editor\log4uni.editor.*" />      
     </ItemGroup>
     <Delete Files="@(StuffToDelete)" />
   </Target>

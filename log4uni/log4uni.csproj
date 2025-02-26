@@ -121,6 +121,8 @@
     <PackageVersionUpdateTask TargetJson="$(SolutionDir)Build\$(Configuration)\package.json" TargetAssembly="$(SolutionDir)Build\$(Configuration)\log4uni.dll" />
     <ItemGroup>
       <StuffToDelete Include="$(SolutionDir)\Build\$(Configuration)\UnityEngine.dll" />
+      <StuffToDelete Include="$(SolutionDir)\Build\$(Configuration)\*.pdb" />
+      <StuffToDelete Include="$(SolutionDir)\Build\$(Configuration)\*.pdb.meta" />
     </ItemGroup>
     <Delete Files="@(StuffToDelete)" />
     <Copy SourceFiles="$(SolutionDir)\LICENSE" DestinationFiles="$(SolutionDir)\Build\$(Configuration)\LICENSE.md" />
